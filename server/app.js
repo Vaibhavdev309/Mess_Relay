@@ -7,5 +7,5 @@ app.get("/", (req, res) => {
   res.status(201).json("Server created");
 });
 app.listen(PORT, () => {
-  console.log("Server is established successfully at port ", PORT);
+  console.log("Server is established successfully at port :- ", PORT);
 });
