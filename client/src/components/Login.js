@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 import "./mix.css";
 
 class Login extends Component {
@@ -20,6 +21,15 @@ class Login extends Component {
       console.log("Please enter a valid registration number");
     } else if (password.length < 7) {
       console.log("Password must be greater than 7 characters");
+    } else {
+      axios
+        .post("/login", this.state)
+        .then(() => {
+          console.log("Successfull login to the account");
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
     }
   };
 

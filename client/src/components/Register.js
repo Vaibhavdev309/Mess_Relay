@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 class Register extends Component {
@@ -53,9 +54,24 @@ class Register extends Component {
       console.log("Password must be greater than 7 characters");
     } else if (password !== cPassword) {
       console.log("Password should match confirm password");
+    } else {
+      axios
+        .post("/register", this.state)
+        .then(() => {
+          this.setState({
+            fName: "",
+            regNo: "",
+            email: "",
+            password: "",
+            cPassword: "",
+          });
+          alert("Registration Successfully Done");
+        })
+        .catch((error) => {
+          console.error("Error:", error.response.data);
+        });
     }
   };
-
   render() {
     return (
       <>
