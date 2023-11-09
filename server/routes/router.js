@@ -1,7 +1,8 @@
 const express = require("express");
 const userdb = require("../models/userSchema");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const router = new express.Router();
+const authenticate = require("../middleware/authenticate");
 
 router.post("/register", async (req, res) => {
   const { fName, email, regNo, password, cPassword } = req.body;
@@ -43,12 +44,39 @@ router.post("/login", async (req, res) => {
         res.status(422).json({ error: "Password Not matched" });
       } else {
         const token = await userValid.generateAuthtoken();
-        console.log("The final response from the findOne is ", userValid);
-        console.log(token);
+        const expirationTime = new Date(Date.now() + 9000000);
+        res.cookie("userCookie", token, {
+          expires: expirationTime,
+          httpOnly: true,
+        });
+        const result = { userValid, token };
+        res.status(201).json({ status: 201, result });
       }
     }
   } catch (error) {
     console.log("Error in login click", error);
+  }
+});
+
+router.get("/validUser", authenticate, async (req, res) => {
+  try {
+    const validUserOne = await userdb.findOne({ _id: req.userId });
+    res.status(201).json({ status: 201, validUserOne });
+  } catch (error) {
+    res.status(401).json({ status: 401, error });
+  }
+});
+
+router.get("/logout", authenticate, async (req, res) => {
+  try {
+    req.rootUser.tokens = req.rootUser.tokens.filter((curelem) => {
+      return curelem.token !== req.token;
+    });
+    res.clearCookie("userCookie", { path: "/" });
+    req.rootUser.save();
+    res.status(201).json({ status: 201 });
+  } catch (error) {
+    res.status(201).json({ status: 401, error });
   }
 });
 

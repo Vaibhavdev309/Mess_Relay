@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const keysecret = "Vaibhavkumarmauryaisagoodboyasdflasfjlas";
@@ -24,22 +24,21 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function (next) {
-  this.password = await bcrypt.hash(this.password, 12);
-  this.cPassword = await bcrypt.hash(this.cPassword, 12);
-  next();
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 12);
+    this.cPassword = await bcrypt.hash(this.cPassword, 12);
+    next();
+  }
 });
 
 userSchema.methods.generateAuthtoken = async function () {
   try {
-    let token = jwt.sign({ _id: this._id }, keysecret, { expiresIn: "1d" });
-    this.tokens = this.tokens.concate({ token });
-    console.log("I reched herer");
+    let newToken = jwt.sign({ _id: this._id }, keysecret, { expiresIn: "1d" });
+    this.tokens = this.tokens.concat({ token: newToken });
     await this.save();
-    console.log(this.tokens);
-    console.log("I reached here");
-    return token;
+    return newToken;
   } catch (error) {
-    console.log("Error in generating token", error);
+    res.status(422).json(error);
   }
 };
 
