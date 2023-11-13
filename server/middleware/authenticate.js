@@ -7,14 +7,12 @@ const authenticate = async (req, res, next) => {
     const token = req.headers.authorization;
     const verifyToken = jwt.verify(token, keysecret);
     const rootUser = await userdb.findOne({ _id: verifyToken._id });
-    console.log(rootUser);
     if (!rootUser) {
       throw new Error("user not found");
     }
     req.token = token;
     req.rootUser = rootUser;
     req.userId = rootUser._id;
-    console.log("I reached fucking herre");
     next();
   } catch (error) {
     res

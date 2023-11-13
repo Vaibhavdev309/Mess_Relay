@@ -224,16 +224,25 @@ body{
   box-sizing: border-box;
   font-family: "Poppins" , sans-serif;
 }
-body{
+/* body{
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: #7d2ae8; */
-  padding: 30px;
+  background: #7d2ae8;
 
-  background-image: "./ezgif.com-video-to-gif.gif";
+  background-image: "./background.jpg";
   background-size: cover;
+} */
+body{
+  background-image: "./background.jpg";
+  background-size: cover;
+}
+.border{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
 }
 .two{
   display: flex;
@@ -444,13 +453,31 @@ body{
 .container #flip{
   display: none;
 }
+@media only screen and (max-width: 1030px) and (min-width: 730px) {
+  .container .cover{
+    display: none;
+  }
+  .form-content .login-form,
+  .form-content .signup-form{
+    width: 50vw;
+  }
+  .form-content .signup-form{
+    display: none;
+  }
+  .container #flip:checked ~ .forms .signup-form{
+    display: block;
+  }
+  .container #flip:checked ~ .forms .login-form{
+    display: none;
+  }
+}
 @media (max-width: 730px) {
   .container .cover{
     display: none;
   }
   .form-content .login-form,
   .form-content .signup-form{
-    width: 100%;
+    width: 70vw;
   }
   .form-content .signup-form{
     display: none;

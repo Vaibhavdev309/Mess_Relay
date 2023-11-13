@@ -47,7 +47,7 @@ const Slider = () => {
           />
           <div class="carousel-caption d-none d-md-block">
             <h5>SVBH Hostel</h5>
-            <p>Sardar vivekanand boys Hostel</p>
+            <p>Swami Vivekanand Boys Hostel</p>
 
             <div class="slider-btn">
               <button class="btn btn-1">
@@ -61,7 +61,7 @@ const Slider = () => {
         </div>
         <div class="carousel-item">
           <img
-            src="https://e1.pxfuel.com/desktop-wallpaper/107/678/desktop-wallpaper-bal-gangadhar-tilak-tilak.jpg"
+            src="https://5.imimg.com/data5/YQ/GN/YQ/SELLER-70376851/bal-gangadhar-tilak-portrait-sketching-500x500.jpg"
             class="d-block w-100"
             alt="..."
           />

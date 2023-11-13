@@ -1,12 +1,22 @@
 const express = require("express");
 const userdb = require("../models/userSchema");
+const usercomp = require("../models/complaintSchema");
 const bcrypt = require("bcryptjs");
 const router = new express.Router();
 const authenticate = require("../middleware/authenticate");
 
+//Post request to register a new user with validation
 router.post("/register", async (req, res) => {
-  const { fName, email, regNo, password, cPassword } = req.body;
-  if (!fName || !email || !regNo || !password || !cPassword) {
+  const { fName, email, regNo, password, cPassword, role, hostel } = req.body;
+  if (
+    !fName ||
+    !email ||
+    !regNo ||
+    !password ||
+    !cPassword ||
+    !hostel ||
+    !role
+  ) {
     res.status(422).json({ error: "Fill all the details" });
   }
   try {
@@ -20,6 +30,8 @@ router.post("/register", async (req, res) => {
         regNo,
         password,
         cPassword,
+        hostel,
+        role,
       });
       const storeData = await finalUser.save();
       res.status(201).json({ status: 201, storeData });
@@ -29,6 +41,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//Post request to login a existed user with validation
 router.post("/login", async (req, res) => {
   const { regNo, password } = req.body;
   await userdb.findOne({ regNo });
@@ -77,6 +90,131 @@ router.get("/logout", authenticate, async (req, res) => {
     res.status(201).json({ status: 201 });
   } catch (error) {
     res.status(201).json({ status: 401, error });
+  }
+});
+
+router.post("/subComp", async (req, res) => {
+  const { complaint, user, fname, regno } = req.body;
+  try {
+    const newComp = new usercomp({
+      complaint,
+      user,
+      fname,
+      regno,
+    });
+    const storeData = await newComp.save();
+    res.status(201).json({ status: 201, storeData });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.post("/mycomplaint", async (req, res) => {
+  const { user } = req.body;
+  await usercomp
+    .find({ user })
+    .then((data) => res.json(data))
+    .catch((err) => {
+      res.json(err);
+    });
+});
+router.get("/showComplaints", async (req, res) => {
+  usercomp
+    .find()
+    .then((complaints) => res.json(complaints))
+    .catch((err) => {
+      res.json(err);
+    });
+});
+// Route to delete a specific complaint
+router.delete("/comp/:id", async (req, res) => {
+  try {
+    // Delete the complaint with the given ID
+    const _id = req.params.id;
+    const deleted = await usercomp.deleteOne({ _id });
+    res.json(deleted);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
+// Route to delete a specific user
+router.delete("/user/:id", async (req, res) => {
+  try {
+    // Delete the user with the given ID
+    const _id = req.params.id;
+    const deleted = await userdb.deleteOne({ _id });
+    await userdb.save();
+    res.json(deleted);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
+router.post("/comp/liked/:id", async (req, res) => {
+  const _id = req.params.id;
+  const { user } = req.body;
+
+  try {
+    // Find the complaint by ID
+    const complaint = await usercomp.findById(_id);
+
+    if (!complaint) {
+      return res.status(404).json({ error: "Complaint not found" });
+    }
+
+    // Check if the user ID is already in the liked array
+    if (!complaint.likedBy.includes(user)) {
+      // If not, push the user ID into the liked array
+      complaint.likedBy.push(user);
+
+      // Save the updated complaint
+      await complaint.save();
+
+      return res.status(201).json("The liked person is added to the list");
+    } else {
+      const index = complaint.likedBy.indexOf(user);
+      complaint.likedBy.splice(index, 1);
+      await complaint.save();
+      return res.status(201).json({ message: "Like removed" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.post("/comp/commented/:id", async (req, res) => {
+  const _id = req.params.id;
+  const { user, comment } = req.body;
+
+  try {
+    // Find the complaint by ID
+    const complaint = await usercomp.findById(_id);
+
+    if (!complaint) {
+      return res.status(404).json({ error: "Complaint not found" });
+    }
+    usercomp.commentedBy.push({ user: comment });
+    await usercomp.save();
+    return res.status(201).json({ message: "successfully added the message" });
+    // Check if the user ID is already in the liked array
+    // if (!complaint.commentedBy.includes(user)) {
+    //   // If not, push the user ID into the liked array
+    //   complaint.liked.push(user);
+
+    //   // Save the updated complaint
+    //   await complaint.save();
+
+    //   return res.status(201).json("The liked person is added to the list");
+    // } else {
+    //   const index = complaint.liked.indexOf(user);
+    //   complaint.liked.splice(index, 1);
+    //   await complaint.save();
+    //   return res.status(201).json({ message: "Like removed" });
+    // }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

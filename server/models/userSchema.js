@@ -8,6 +8,8 @@ const keysecret = "Vaibhavkumarmauryaisagoodboyasdflasfjlas";
 const userSchema = new mongoose.Schema({
   fName: { type: String, required: true, trim: true },
   regNo: { type: Number, required: true, unique: true },
+  role: { type: String, required: true },
+  hostel: { type: String, required: true },
   email: {
     type: String,
     required: true,
@@ -38,7 +40,7 @@ userSchema.methods.generateAuthtoken = async function () {
     await this.save();
     return newToken;
   } catch (error) {
-    res.status(422).json(error);
+    throw error;
   }
 };
 

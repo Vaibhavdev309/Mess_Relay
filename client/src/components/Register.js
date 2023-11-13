@@ -134,8 +134,52 @@ const RegisterPage = () => {
                     type="number"
                     name="regNo"
                     id="regNo"
-                    placeholder="Enter your Registration No."
+                    placeholder="Enter your Reg. No."
                   />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    width: "100%",
+                    margin: "10px auto",
+                    color: "#5b13b9",
+                  }}
+                  className="input-box"
+                >
+                  <i className="fas fa-user" style={{ width: "10%" }}></i>
+
+                  <select
+                    style={{
+                      flexShrink: "1",
+                      width: "40%",
+                      margin: "0px 30px",
+                    }}
+                    name="role"
+                    id="role"
+                  >
+                    <option value="" disabled selected>
+                      Role
+                    </option>
+                    <option value="Student">Student</option>
+                    <option value="Accountant">Accountant</option>
+                    <option value="Chief Warden">Chief Warden</option>
+                    <option value="Student Representative">
+                      Student Representative
+                    </option>
+                  </select>
+                  <select
+                    style={{ flexShrink: "1", width: "40%" }}
+                    name="role"
+                    id="role"
+                  >
+                    <option value="" disabled selected>
+                      Hostel
+                    </option>
+                    <option value="SVBH">SVBH</option>
+                    <option value="Patel">Patel</option>
+                    <option value="Tilak">Tilak</option>
+                    <option value="Tandon">Tandon</option>
+                  </select>
                 </div>
                 <div className="input-box">
                   <i className="fas fa-lock"></i>
@@ -203,7 +247,7 @@ const RegisterPage = () => {
                     id="regNo"
                     value={regNo}
                     onChange={(e) => setRegNo(e.target.value)}
-                    placeholder="Enter your Registration Number"
+                    placeholder="Enter your Reg. Number"
                   />
                 </div>
                 <div className="input-box">

@@ -198,6 +198,24 @@ body{
 .container #flip{
   display: none;
 }
+@media only screen and (max-width: 1030px) and (min-width: 730px) {
+  .container .cover{
+    display: none;
+  }
+  .form-content .login-form,
+  .form-content .signup-form{
+    width: 50vw;
+  }
+  .form-content .signup-form{
+    display: none;
+  }
+  .container #flip:checked ~ .forms .signup-form{
+    display: block;
+  }
+  .container #flip:checked ~ .forms .login-form{
+    display: none;
+  }
+}
 @media (max-width: 730px) {
   .container .cover{
     display: none;

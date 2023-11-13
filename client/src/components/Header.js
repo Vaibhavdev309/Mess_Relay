@@ -27,11 +27,12 @@ const LogoutUser = async (history) => {
 
 const Header = () => {
   const history = useNavigate(); // Get useNavigate function
+  let fName = localStorage.getItem("usersdatafname");
 
   return (
     <header>
       <nav>
-        <h1>Hp Cloud</h1>
+        <h1>{fName}</h1>
         <div className="avtar">
           <Avatar
             onClick={() => {

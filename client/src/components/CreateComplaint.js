@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CreateComplaint = () => {
-  const navigate = useNavigate();
   const [complaint, setComplaint] = useState("");
+  const navigate = useNavigate();
 
   const ComplaintValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
@@ -17,25 +17,26 @@ const CreateComplaint = () => {
     if (data.status === 401 || !data) {
       navigate("*");
     } else {
-      navigate("/createcomplaint");
+      navigate("/mainpage/createcomplaint");
     }
   };
   useEffect(() => {
-    console.log("i reached here");
     ComplaintValid();
   }, []);
   const subComp = (event) => {
+    const fname = localStorage.getItem("usersdatafname");
+    const user = localStorage.getItem("usersdataid");
+    const regno = localStorage.getItem("usersdataregno");
     event.preventDefault();
     if (complaint === "") {
       console.log("Please Enter your complaint first before submitting");
     } else {
       axios
-        .post("/subComp", { complaint })
+        .post("/subComp", { complaint, user, regno, fname })
         .then(async (response) => {
           const res = response.data;
           if (res.status === 201) {
-            console.log("I successfully going to navigate to getcomplaint");
-            navigate("/getcomplaint");
+            navigate("/mainpage/createcomplaint");
             setComplaint("");
           }
         })
