@@ -10,6 +10,7 @@ const complaintSchema = new mongoose.Schema({
   fname: { type: String, required: true },
   submittedon: { type: Date, required: true, default: Date.now },
   complaint: { type: String, required: true },
+  resolved: { type: Boolean, default: false },
   likedBy: { type: [mongoose.Schema.Types.ObjectId], default: [] }, // Initialize liked as an empty array
   commentedBy: [{ user: mongoose.Schema.Types.ObjectId, text: String }],
 });

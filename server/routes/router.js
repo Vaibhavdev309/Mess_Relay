@@ -4,6 +4,7 @@ const usercomp = require("../models/complaintSchema");
 const bcrypt = require("bcryptjs");
 const router = new express.Router();
 const authenticate = require("../middleware/authenticate");
+const nodemailer = require("nodemailer");
 
 //Post request to register a new user with validation
 router.post("/register", async (req, res) => {
@@ -215,6 +216,61 @@ router.post("/comp/commented/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/comp/resolved/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const complaint = await usercomp.findOne({ _id });
+
+    if (!complaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+
+    // Toggle the resolved property
+    complaint.resolved = !complaint.resolved;
+
+    // Save the updated document
+    await complaint.save();
+
+    res.status(201).json({ message: "Toggled the resolved" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/sendmail", async (req, res) => {
+  try {
+    const unresolved = await usercomp.find({ resolved: false });
+    let hello = unresolved.map((complaint) => {
+      return `${complaint.fname}: ${complaint.complaint}`;
+    });
+    hello = hello.join("\n");
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "sudosusenpai@gmail.com",
+        pass: "ffqd hwwr hgof oxax",
+      },
+    });
+
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+      from: '"Sudosu Senpai👻" <sudosusenpai@gmail.com>',
+      to: "vaibhav.dev.309@gmail.com",
+      subject: "List of unresolved complaints",
+      text: hello,
+    });
+
+    res.status(200).json({ message: "Email sent successfully" });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

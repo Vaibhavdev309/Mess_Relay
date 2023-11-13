@@ -20,7 +20,6 @@ const GetComplaint = () => {
     //     console.log(err);
     //   });
   };
-
   const fetchData = async () => {
     try {
       const response = await axios.get("/showComplaints"); // Replace with your actual API endpoint
@@ -42,6 +41,13 @@ const GetComplaint = () => {
   useEffect(() => {
     fetchData(); // Fetch data on initial component mount
   }, []);
+  const doResolve = async (id) => {
+    try {
+      await axios.get(`/comp/resolved/${id}`);
+    } catch (err) {
+      throw err;
+    }
+  };
   // const doDelete = (id) => {
   //   axios
   //     .delete(`/comp/${id}`)
@@ -92,12 +98,19 @@ const GetComplaint = () => {
               <button>Submit</button>
             </form>
             {role === "Student" && <div>hello</div>}
-            <p key={complaint._id}>{complaint.complaint}</p>
-            {(role === "Accountant" || role === "Professor") && (
-              <Link onClick={() => doDelete(complaint._id)}>
-                <i class="fa-solid fa-trash"></i>
-              </Link>
-            )}
+            <p key={complaint._id}>
+              {complaint.complaint}
+              {(role === "Accountant" || role === "Professor") && (
+                <div>
+                  <Link onClick={() => doResolve(complaint._id)}>
+                    <i class="fa-solid fa-check"></i>
+                  </Link>
+                  <Link onClick={() => doDelete(complaint._id)}>
+                    <i class="fa-solid fa-trash"></i>
+                  </Link>
+                </div>
+              )}
+            </p>
           </div>
         );
       })}

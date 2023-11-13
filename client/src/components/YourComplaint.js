@@ -38,7 +38,7 @@ const YourComplaint = () => {
   useEffect(() => {
     axios
       .post("/mycomplaint", { user })
-      .then((complaints) => setComplaints(complaints.data))
+      .then((response) => setComplaints(response.data))
       .catch((error) => {
         console.log(error);
       });
