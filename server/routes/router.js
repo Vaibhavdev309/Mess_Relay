@@ -241,37 +241,4 @@ router.get("/comp/resolved/:id", async (req, res) => {
   }
 });
 
-router.get("/sendmail", async (req, res) => {
-  try {
-    const unresolved = await usercomp.find({ resolved: false });
-    let hello = unresolved.map((complaint) => {
-      return `${complaint.fname}: ${complaint.complaint}`;
-    });
-    hello = hello.join("\n");
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "sudosusenpai@gmail.com",
-        pass: "ffqd hwwr hgof oxax",
-      },
-    });
-
-    // send mail with defined transport object
-    const info = await transporter.sendMail({
-      from: '"Sudosu Senpai👻" <sudosusenpai@gmail.com>',
-      to: "vaibhav.dev.309@gmail.com",
-      subject: "List of unresolved complaints",
-      text: hello,
-    });
-
-    res.status(200).json({ message: "Email sent successfully" });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-
 module.exports = router;
