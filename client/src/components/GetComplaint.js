@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Inbox from "./Inbox";
 
 const GetComplaint = () => {
   const user = localStorage.getItem("usersdataid");
@@ -88,29 +89,12 @@ const GetComplaint = () => {
       {complaints.map((complaint) => {
         return (
           <div key={complaint._id}>
-            <form onSubmit={doComment}>
-              <input
-                type="text"
-                onChange={(e) => {
-                  setComment(e.target.value);
-                }}
-              />
-              <button>Submit</button>
-            </form>
-            {role === "Student" && <div>hello</div>}
-            <p key={complaint._id}>
-              {complaint.complaint}
-              {(role === "Accountant" || role === "Professor") && (
-                <div>
-                  <Link onClick={() => doResolve(complaint._id)}>
-                    <i class="fa-solid fa-check"></i>
-                  </Link>
-                  <Link onClick={() => doDelete(complaint._id)}>
-                    <i class="fa-solid fa-trash"></i>
-                  </Link>
-                </div>
-              )}
-            </p>
+            <Inbox
+              complaintId={complaint._id}
+              name={complaint.fname}
+              subject={complaint.subject}
+              complaint={complaint.complaint}
+            />
           </div>
         );
       })}
@@ -119,3 +103,35 @@ const GetComplaint = () => {
 };
 
 export default GetComplaint;
+
+// <div>
+//   {complaints.map((complaint) => {
+//     return (
+//       <div key={complaint._id}>
+//         <form onSubmit={doComment}>
+//           <input
+//             type="text"
+//             onChange={(e) => {
+//               setComment(e.target.value);
+//             }}
+//           />
+//           <button>Submit</button>
+//         </form>
+//         {role === "Student" && <div>hello</div>}
+//         <p key={complaint._id}>
+//           {complaint.complaint}
+//           {(role === "Accountant" || role === "Professor") && (
+//             <div>
+//               <Link onClick={() => doResolve(complaint._id)}>
+//                 <i class="fa-solid fa-check"></i>
+//               </Link>
+//               <Link onClick={() => doDelete(complaint._id)}>
+//                 <i class="fa-solid fa-trash"></i>
+//               </Link>
+//             </div>
+//           )}
+//         </p>
+//       </div>
+//     );
+//   })}
+// </div>

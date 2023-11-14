@@ -95,14 +95,9 @@ router.get("/logout", authenticate, async (req, res) => {
 });
 
 router.post("/subComp", async (req, res) => {
-  const { complaint, user, fname, regno } = req.body;
+  const { complaint, user, fname, regno, subject } = req.body;
   try {
-    const newComp = new usercomp({
-      complaint,
-      user,
-      fname,
-      regno,
-    });
+    const newComp = new usercomp({ subject, complaint, user, fname, regno });
     const storeData = await newComp.save();
     res.status(201).json({ status: 201, storeData });
   } catch (error) {

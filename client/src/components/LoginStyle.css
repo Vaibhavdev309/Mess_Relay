@@ -235,7 +235,7 @@ body{
   background-size: cover;
 } */
 body{
-  background-image: "./background.jpg";
+  background-image: url("./background.jpg");
   background-size: cover;
 }
 .border{

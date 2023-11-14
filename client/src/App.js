@@ -8,6 +8,7 @@ import Homepage from "./routes/Homepage.js";
 import Mainpage from "./routes/Mainpage.js";
 import GetComplaint from "./components/GetComplaint";
 import YourComplaint from "./components/YourComplaint.js";
+import Inbox from "./components/Inbox.js";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="allcomplaint" element={<GetComplaint />}></Route>
           <Route path="yourcomplaint" element={<YourComplaint />}></Route>
           <Route path="createcomplaint" element={<CreateComplaint />}></Route>
+          <Route path="inbox" element={<Inbox />}></Route>
         </Route>
         <Route path="/dash" element={<Dashboard />} />
         <Route path="/error" element={<Error />} />
