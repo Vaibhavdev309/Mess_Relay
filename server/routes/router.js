@@ -95,9 +95,27 @@ router.get("/logout", authenticate, async (req, res) => {
 });
 
 router.post("/subComp", async (req, res) => {
-  const { complaint, user, fname, regno, subject } = req.body;
+  const {
+    complaint,
+    user,
+    fname,
+    regno,
+    subject,
+    victim,
+    situation,
+    authority,
+  } = req.body;
   try {
-    const newComp = new usercomp({ subject, complaint, user, fname, regno });
+    const newComp = new usercomp({
+      subject,
+      complaint,
+      user,
+      fname,
+      regno,
+      victim,
+      situation,
+      authority,
+    });
     const storeData = await newComp.save();
     res.status(201).json({ status: 201, storeData });
   } catch (error) {
@@ -154,7 +172,6 @@ router.post("/comp/liked/:id", async (req, res) => {
   try {
     // Find the complaint by ID
     const complaint = await usercomp.findById(_id);
-
     if (!complaint) {
       return res.status(404).json({ error: "Complaint not found" });
     }
@@ -181,33 +198,26 @@ router.post("/comp/liked/:id", async (req, res) => {
 });
 router.post("/comp/commented/:id", async (req, res) => {
   const _id = req.params.id;
-  const { user, comment } = req.body;
-
+  const { user, comment, fname } = req.body;
   try {
-    // Find the complaint by ID
     const complaint = await usercomp.findById(_id);
-
     if (!complaint) {
       return res.status(404).json({ error: "Complaint not found" });
     }
-    usercomp.commentedBy.push({ user: comment });
-    await usercomp.save();
-    return res.status(201).json({ message: "successfully added the message" });
-    // Check if the user ID is already in the liked array
-    // if (!complaint.commentedBy.includes(user)) {
-    //   // If not, push the user ID into the liked array
-    //   complaint.liked.push(user);
+    if (!complaint.commentedBy.includes(user)) {
+      // If not, push the user ID into the liked array
+      complaint.liked.push(user);
 
-    //   // Save the updated complaint
-    //   await complaint.save();
+      // Save the updated complaint
+      await complaint.save();
 
-    //   return res.status(201).json("The liked person is added to the list");
-    // } else {
-    //   const index = complaint.liked.indexOf(user);
-    //   complaint.liked.splice(index, 1);
-    //   await complaint.save();
-    //   return res.status(201).json({ message: "Like removed" });
-    // }
+      return res.status(201).json("The liked person is added to the list");
+    } else {
+      const index = complaint.liked.indexOf(user);
+      complaint.liked.splice(index, 1);
+      await complaint.save();
+      return res.status(201).json({ message: "Like removed" });
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -233,6 +243,20 @@ router.get("/comp/resolved/:id", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/complaintbox/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const complaint = await usercomp
+      .find({ _id })
+      .then((complaint) => res.json(complaint));
+    if (!complaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+  } catch (error) {
+    throw error;
   }
 });
 

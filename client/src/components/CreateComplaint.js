@@ -5,8 +5,11 @@ import "./CreateComplaint.css";
 import { useNavigate } from "react-router-dom";
 
 const CreateComplaint = () => {
-  const [complaint, setComplaint] = useState("");
+  const [victim, setVictim] = useState("");
+  const [situation, setSituation] = useState("Intermediate");
+  const [authority, setAuthority] = useState("");
   const [subject, setSubject] = useState("");
+  const [complaint, setComplaint] = useState("");
   const navigate = useNavigate();
 
   const ComplaintValid = async () => {
@@ -30,17 +33,29 @@ const CreateComplaint = () => {
     const user = localStorage.getItem("usersdataid");
     const regno = localStorage.getItem("usersdataregno");
     event.preventDefault();
-    if (complaint === "" || subject === "") {
+    if (complaint === "" || subject === "" || victim === "") {
       console.log("Please enter valid subject and complaint before submitting");
     } else {
       axios
-        .post("/subComp", { subject, complaint, user, regno, fname })
+        .post("/subComp", {
+          subject,
+          complaint,
+          user,
+          regno,
+          fname,
+          victim,
+          situation,
+          authority,
+        })
         .then(async (response) => {
           const res = response.data;
           if (res.status === 201) {
             navigate("/mainpage/createcomplaint");
             setComplaint("");
             setSubject("");
+            setAuthority("Mess Manager");
+            setSituation("Intermediate");
+            setVictim("");
           }
         })
         .catch((error) => {
@@ -59,11 +74,17 @@ const CreateComplaint = () => {
                 <span className="details">Name of Victim</span>
                 <input
                   type="text"
+                  name="victim"
+                  id="victim"
+                  value={victim}
+                  onChange={(e) => {
+                    setVictim(e.target.value);
+                  }}
                   placeholder="Enter the name of the victim"
                   required
                 />
               </div>
-              <div className="input-box">
+              {/* <div className="input-box">
                 <span className="details">Date of Incident</span>
                 <input type="date" required />
               </div>
@@ -74,21 +95,31 @@ const CreateComplaint = () => {
                   placeholder="Enter the name of the mess"
                   required
                 />
-              </div>
+              </div> */}
               <div className="input-box">
                 <span className="details">Situation</span>
-                <select required>
-                  <option value="critical">Critical</option>
+                <select
+                  value={situation}
+                  onChange={(e) => setSituation(e.target.value)}
+                  required
+                >
                   <option value="intermediate">Intermediate</option>
+                  <option value="critical">Critical</option>
                 </select>
               </div>
               <div className="input-box">
                 <span className="details">Complaint For</span>
-                <select required>
+                <select
+                  value={authority}
+                  onChange={(e) => {
+                    setAuthority(e.target.value);
+                  }}
+                  required
+                >
+                  <option value="messManager">Mess Manager</option>
                   <option value="accountant">Accountant</option>
                   <option value="chiefWarden">Chief Warden</option>
                   <option value="professor">Professor</option>
-                  <option value="messManager">Mess Manager</option>
                 </select>
               </div>
               <div className="input-box">
@@ -101,19 +132,27 @@ const CreateComplaint = () => {
               <input
                 className="subjectForm"
                 type="text"
+                value={subject}
+                onChange={(e) => {
+                  setSubject(e.target.value);
+                }}
                 placeholder="Enter the subject of the file"
                 required
               />
             </div>
             <div className="input-box">
-              <span className="details">Description</span>
+              <span className="details">Complaint</span>
               <textarea
+                value={complaint}
+                onChange={(e) => {
+                  setComplaint(e.target.value);
+                }}
                 placeholder="Enter a detailed description of the incident"
                 required
               ></textarea>
             </div>
             <div className="button">
-              <input type="submit" value="Submit Complaint" />
+              <button onClick={subComp}>Submit Complaint</button>
             </div>
           </form>
         </div>

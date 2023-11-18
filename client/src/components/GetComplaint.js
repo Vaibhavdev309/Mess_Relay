@@ -7,7 +7,6 @@ const GetComplaint = () => {
   const user = localStorage.getItem("usersdataid");
   const role = localStorage.getItem("usersdatarole");
   const [complaints, setComplaints] = useState([]);
-  const [comment, setComment] = useState("");
   const navigate = useNavigate();
   const doComment = (event) => {
     event.preventDefault();
@@ -21,34 +20,36 @@ const GetComplaint = () => {
     //     console.log(err);
     //   });
   };
-  const fetchData = async () => {
-    try {
-      const response = await axios.get("/showComplaints"); // Replace with your actual API endpoint
-      setComplaints(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const fetchDataAndSetComplaints = async () => {
+  //   try {
+  //     const response = await axios.get("/showComplaints");
+  //     setComplaints(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
-  const doDelete = async (id) => {
-    try {
-      await axios.delete(`/comp/${id}`);
-      fetchData(); // Fetch data after successful deletion
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const doDelete = async (id) => {
+  //   try {
+  //     await axios.delete(`/comp/${id}`);
+  //     fetchDataAndSetComplaints(); // Fetch data after successful deletion
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData(); // Fetch data on initial component mount
-  }, []);
-  const doResolve = async (id) => {
-    try {
-      await axios.get(`/comp/resolved/${id}`);
-    } catch (err) {
-      throw err;
-    }
-  };
+  // useEffect(() => {
+  //   // Fetch data on initial component mount
+  //   fetchDataAndSetComplaints();
+  // }, []);
+
+  // const doResolve = async (id) => {
+  //   try {
+  //     await axios.get(`/comp/resolved/${id}`);
+  //   } catch (err) {
+  //     throw err;
+  //   }
+  // };
   // const doDelete = (id) => {
   //   axios
   //     .delete(`/comp/${id}`)
@@ -93,7 +94,10 @@ const GetComplaint = () => {
               complaintId={complaint._id}
               name={complaint.fname}
               subject={complaint.subject}
-              complaint={complaint.complaint}
+              // complaint={complaint.complaint}
+              arr={complaint.likedBy}
+              situation={complaint.situation}
+              resolve={complaint.resolved}
             />
           </div>
         );
