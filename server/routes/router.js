@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const router = new express.Router();
 const authenticate = require("../middleware/authenticate");
 const nodemailer = require("nodemailer");
+const usermela = require("../models/MealSchema");
+const usermeal = require("../models/MealSchema");
 
 //Post request to register a new user with validation
 router.post("/register", async (req, res) => {
@@ -260,4 +262,63 @@ router.get("/complaintbox/:id", async (req, res) => {
   }
 });
 
+router.put("/mealupdate", async (req, res) => {
+  try {
+    const { day, breakfast, lunch, snacks, dinner, calorie, expense, din } =
+      req.body;
+    console.log("I am coming till here");
+
+    let mealfound = await usermeal.findOne({ day });
+
+    if (!mealfound) {
+      const newMeal = new usermeal({
+        day,
+        calorie,
+        expense,
+        din,
+        breakfast,
+        lunch,
+        snacks,
+        dinner,
+      });
+
+      const ans = await newMeal.save();
+
+      return res
+        .status(201)
+        .json({ message: "New meal created successfully", ans });
+    }
+
+    mealfound.breakfast = breakfast;
+    mealfound.lunch = lunch;
+    mealfound.snacks = snacks;
+    mealfound.dinner = dinner;
+    mealfound.calorie = calorie;
+    mealfound.expense = expense;
+
+    const ans = await mealfound.save();
+
+    res.status(200).json({ message: "Meal updated successfully", ans });
+  } catch (error) {
+    console.error("Error updating/creating meal:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/findmeal", async (req, res) => {
+  const ans = await usermeal.find().sort({ din: 1 });
+  res.json(ans);
+});
+
+router.post("/finddaymeal", async (req, res) => {
+  const { day } = req.body; // Destructure day from the request body
+  try {
+    const ans = await usermeal.find({ day: day }); // Use the extracted day
+    console.log(ans);
+    res.json(ans);
+  } catch (error) {
+    console.error("Error fetching day meal data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 module.exports = router;
