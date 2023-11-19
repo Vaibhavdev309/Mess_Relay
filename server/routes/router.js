@@ -6,7 +6,7 @@ const router = new express.Router();
 const authenticate = require("../middleware/authenticate");
 const nodemailer = require("nodemailer");
 
-//hello
+//hello this is the new commit
 router.post("/register", async (req, res) => {
   const { fName, email, regNo, password, cPassword, role, hostel } = req.body;
   if (
