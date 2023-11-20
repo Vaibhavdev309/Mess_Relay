@@ -81,7 +81,7 @@ const LoginPage = () => {
             localStorage.setItem("usersdataid", res.result.userValid._id);
             localStorage.setItem("usersdatarole", res.result.userValid.role);
             localStorage.setItem("usersdatahostel", res.result.userValid.role);
-            navigate("/mainpage/allcomplaint");
+            navigate("/mainpage/afterlogin");
             setRegNo("");
             setPassword("");
           }

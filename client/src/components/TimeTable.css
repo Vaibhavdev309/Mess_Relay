@@ -26,7 +26,7 @@
 }
 
 .table thead {
-  background-color: #ee2828;
+  background-color: rgba(206, 48, 74, 0.315);
 }
 
 .table thead tr th {

@@ -266,10 +266,7 @@ router.put("/mealupdate", async (req, res) => {
   try {
     const { day, breakfast, lunch, snacks, dinner, calorie, expense, din } =
       req.body;
-    console.log("I am coming till here");
-
     let mealfound = await usermeal.findOne({ day });
-
     if (!mealfound) {
       const newMeal = new usermeal({
         day,
@@ -314,11 +311,25 @@ router.post("/finddaymeal", async (req, res) => {
   const { day } = req.body; // Destructure day from the request body
   try {
     const ans = await usermeal.find({ day: day }); // Use the extracted day
-    console.log(ans);
     res.json(ans);
   } catch (error) {
     console.error("Error fetching day meal data:", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/daymeal", async (req, res) => {
+  try {
+    const now = new Date();
+    let day = now.getDay();
+    din = day;
+    const meal = await usermeal.find({ din: din });
+    if (!meal) {
+      res.json("The meal is not found");
+    }
+    res.json(meal);
+  } catch (error) {
+    console.log("The error is", error);
   }
 });
 module.exports = router;

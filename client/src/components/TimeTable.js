@@ -115,9 +115,10 @@ const TimeTable = () => {
         <>
           <form
             className="meal"
-            style={{ display: "flex" }}
+            style={{ display: "flex", flexDirection: "column" }}
             onSubmit={onFormSubmit}
           >
+            <label for="day">Day</label>
             <select
               name="day"
               id="day"
@@ -133,66 +134,84 @@ const TimeTable = () => {
               <option value="Saturday">Saturday</option>
               <option value="Sunday">Sunday</option>
             </select>
-            {/* <select
-              name="time"
-              id="time"
-              required
-              onChange={onInputChange2}
-              value={time}
-            >
-              <option value="Breakfast">Breakfast</option>
-              <option value="Lunch">Lunch</option>
-              <option value="Snacks">Snacks</option>
-              <option value="Dinner">Dinner</option>
-            </select> */}
-            <input
-              placeholder="Breakfast"
-              type="text"
-              onChange={(e) => {
-                setBreakfast(e.target.value);
-              }}
-              value={breakfast}
-            />
-            <input
-              placeholder="Lunch"
-              type="text"
-              onChange={(e) => {
-                setLunch(e.target.value);
-              }}
-              value={lunch}
-            />
-            <input
-              placeholder="Snacks"
-              type="text"
-              onChange={(e) => {
-                setSnacks(e.target.value);
-              }}
-              value={snacks}
-            />
-            <input
-              placeholder="Dinner"
-              type="text"
-              onChange={(e) => {
-                setDinner(e.target.value);
-              }}
-              value={dinner}
-            />
-            <input
-              placeholder="calorie"
-              type="number"
-              onChange={(e) => {
-                setCalorie(e.target.value);
-              }}
-              value={calorie}
-            />
-            <input
-              placeholder="expense"
-              type="number"
-              onChange={(e) => {
-                setExpense(e.target.value);
-              }}
-              value={expense}
-            />
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label for="breakfast">Breakfast</label>
+              <input
+                name="breakfast"
+                id="breakfast"
+                placeholder="Breakfast"
+                type="text"
+                onChange={(e) => {
+                  setBreakfast(e.target.value);
+                }}
+                value={breakfast}
+              />
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label for="lunch">Lunch</label>
+              <input
+                id="lunch"
+                placeholder="Lunch"
+                type="text"
+                onChange={(e) => {
+                  setLunch(e.target.value);
+                }}
+                value={lunch}
+              />
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label for="snacks">Snacks</label>
+              <input
+                placeholder="snacks"
+                type="text"
+                onChange={(e) => {
+                  setSnacks(e.target.value);
+                }}
+                value={snacks}
+              />
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label for="dinner">Dinner</label>
+              <input
+                id="dinner"
+                placeholder="Dinner"
+                type="text"
+                onChange={(e) => {
+                  setDinner(e.target.value);
+                }}
+                value={dinner}
+              />
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label for="calorie">Calorie</label>
+              <input
+                id="calorie"
+                placeholder="calorie"
+                type="number"
+                onChange={(e) => {
+                  setCalorie(e.target.value);
+                }}
+                value={calorie}
+              />
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <label for="expense">Expense</label>
+              <input
+                id="expense"
+                placeholder="expense"
+                type="number"
+                onChange={(e) => {
+                  setExpense(e.target.value);
+                }}
+                value={expense}
+              />
+            </div>
+
             <button type="submit">Submit</button>
           </form>
         </>
