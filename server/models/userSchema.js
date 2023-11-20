@@ -23,6 +23,14 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, minLength: 6 },
   cPassword: { type: String, required: true, minLength: 6 },
   tokens: [{ token: { type: String, required: true } }],
+  reviews: [
+    {
+      day: { type: Number, required: true },
+      calorie: { type: Number, required: true },
+      time: { type: String, required: true },
+      rating: { type: Number, required: true },
+    },
+  ],
 });
 
 userSchema.pre("save", async function (next) {

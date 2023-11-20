@@ -11,12 +11,17 @@ const TimeTable = () => {
   const [lunch, setLunch] = useState("");
   const [snacks, setSnacks] = useState("");
   const [dinner, setDinner] = useState("");
-  const [calorie, setCalorie] = useState("");
-  const [expense, setExpense] = useState("");
+  const [breakfastCalorie, setBreakfastCalorie] = useState("");
+  const [lunchCalorie, setLunchCalorie] = useState("");
+  const [snacksCalorie, setSnacksCalorie] = useState("");
+  const [dinnerCalorie, setDinnerCalorie] = useState("");
+  const [breakfastExpense, setBreakfastExpense] = useState(0);
+  const [lunchExpense, setLunchExpense] = useState(0);
+  const [snacksExpense, setSnacksExpense] = useState(0);
+  const [dinnerExpense, setDinnerExpense] = useState(0);
   const [meals, setMeals] = useState([]);
   const checkData = async () => {
     try {
-      console.log("i am coming tillsdfla");
       const response = await axios.post("/finddaymeal", { day });
       if (response.data.length === 0) {
         console.log("No data previously found");
@@ -24,12 +29,28 @@ const TimeTable = () => {
         setLunch("");
         setSnacks("");
         setDinner("");
+        setBreakfastExpense(0);
+        setLunchExpense(0);
+        setSnacksExpense(0);
+        setDinnerExpense(0);
+        setBreakfastCalorie(0);
+        setLunchCalorie(0);
+        setSnacksCalorie(0);
+        setDinnerCalorie(0);
       } else {
         const ans = response.data[0];
         setBreakfast(ans.breakfast);
         setLunch(ans.lunch);
         setSnacks(ans.snacks);
         setDinner(ans.dinner);
+        setBreakfastExpense(ans.breakfastExpense);
+        setLunchExpense(ans.lunchExpense);
+        setSnacksExpense(ans.snacksExpense);
+        setDinnerExpense(ans.dinnerExpense);
+        setBreakfastCalorie(ans.calorie);
+        setLunchCalorie(ans.calorie);
+        setSnacksCalorie(ans.calorie);
+        setDinnerCalorie(ans.calorie);
       }
     } catch (error) {
       console.error("Error fetching day meal data:", error);
@@ -51,7 +72,6 @@ const TimeTable = () => {
       Sunday: 7,
     };
     setDin(dayMap[day]);
-    console.log("I am coming till here very fastly");
     checkData();
   }, [day]);
 
@@ -64,8 +84,14 @@ const TimeTable = () => {
     axios
       .put("/mealupdate", {
         day,
-        calorie,
-        expense,
+        breakfastCalorie,
+        lunchCalorie,
+        snacksCalorie,
+        dinnerCalorie,
+        breakfastExpense,
+        lunchExpense,
+        snacksExpense,
+        dinnerExpense,
         din,
         breakfast,
         lunch,
@@ -73,8 +99,14 @@ const TimeTable = () => {
         dinner,
       })
       .then((response) => {
-        setCalorie("");
-        setExpense("");
+        setBreakfastCalorie(0);
+        setLunchCalorie(0);
+        setSnacksCalorie(0);
+        setDinnerCalorie(0);
+        setBreakfastExpense(0);
+        setLunchExpense(0);
+        setSnacksExpense(0);
+        setDinnerExpense(0);
         setBreakfast("");
         setLunch("");
         setSnacks("");
@@ -146,6 +178,25 @@ const TimeTable = () => {
                 }}
                 value={breakfast}
               />
+              <input
+                name="breakfastExpense"
+                id="breakfastExpense"
+                placeholder="Breakfast Expense"
+                type="text"
+                onChange={(e) => {
+                  setBreakfastExpense(e.target.value);
+                }}
+                value={breakfastExpense}
+              />
+              <input
+                id="breakfastCalorie"
+                placeholder="Breakfast Calorie"
+                type="number"
+                onChange={(e) => {
+                  setBreakfastCalorie(e.target.value);
+                }}
+                value={breakfastCalorie}
+              />
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -159,6 +210,24 @@ const TimeTable = () => {
                 }}
                 value={lunch}
               />
+              <input
+                id="lunchExpense"
+                placeholder="Lunch Expense"
+                type="text"
+                onChange={(e) => {
+                  setLunch(e.target.value);
+                }}
+                value={lunchExpense}
+              />
+              <input
+                id="lunchCalorie"
+                placeholder="Lunch Calorie"
+                type="number"
+                onChange={(e) => {
+                  setLunchCalorie(e.target.value);
+                }}
+                value={lunchCalorie}
+              />
             </div>
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -170,6 +239,24 @@ const TimeTable = () => {
                   setSnacks(e.target.value);
                 }}
                 value={snacks}
+              />
+              <input
+                placeholder="snacks Expense"
+                type="text"
+                onChange={(e) => {
+                  setSnacks(e.target.value);
+                }}
+                value={snacksExpense}
+              />
+              <label for="calorie">Calorie</label>
+              <input
+                id="snacksCalorie"
+                placeholder="Snacks calorie"
+                type="number"
+                onChange={(e) => {
+                  setSnacksCalorie(e.target.value);
+                }}
+                value={snacksCalorie}
               />
             </div>
 
@@ -184,31 +271,24 @@ const TimeTable = () => {
                 }}
                 value={dinner}
               />
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <input
+                id="dinnerExpense"
+                placeholder="Dinner Expense"
+                type="text"
+                onChange={(e) => {
+                  setDinner(e.target.value);
+                }}
+                value={dinnerExpense}
+              />
               <label for="calorie">Calorie</label>
               <input
-                id="calorie"
-                placeholder="calorie"
+                id="dinnerCalorie"
+                placeholder="dinner calorie"
                 type="number"
                 onChange={(e) => {
-                  setCalorie(e.target.value);
+                  setDinnerCalorie(e.target.value);
                 }}
-                value={calorie}
-              />
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <label for="expense">Expense</label>
-              <input
-                id="expense"
-                placeholder="expense"
-                type="number"
-                onChange={(e) => {
-                  setExpense(e.target.value);
-                }}
-                value={expense}
+                value={dinnerCalorie}
               />
             </div>
 

@@ -52,7 +52,7 @@ const Inbox = (props) => {
   useEffect(() => {
     console.log("I rerender the page");
     fetchData(); // Fetch data on initial component mount
-  }, [liked]);
+  }, [liked, complaints]);
   const doResolve = async (id) => {
     try {
       await axios.get(`/comp/resolved/${id}`);

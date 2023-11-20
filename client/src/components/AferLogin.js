@@ -3,61 +3,110 @@ import "./AfterLogin.css";
 import axios from "axios";
 import Card from "./Card";
 
-const AferLogin = () => {
+const AfterLogin = () => {
   const [meals, setMeals] = useState([]);
+
   useEffect(() => {
     axios.get("/daymeal").then((response) => {
-      console.log();
       setMeals(response.data[0]);
     });
   }, []);
 
   return (
     <div className="gojo">
-      <div className="container6">
-        <input type="radio" name="slider" className="d-none" id="s1" checked />
-        <input type="radio" name="slider" className="d-none" id="s2" />
-        <input type="radio" name="slider" className="d-none" id="s3" />
-        <input type="radio" name="slider" className="d-none" id="s4" />
-        <input type="radio" name="slider" className="d-none" id="s5" />
-
-        <div className="bards">
+      <div className="slider">
+        <input type="radio" name="testimonial" id="t-1" />
+        <input type="radio" name="testimonial" id="t-2" />
+        <input type="radio" name="testimonial" id="t-3" checked />
+        <input type="radio" name="testimonial" id="t-4" />
+        {/* <input type="radio" name="testimonial" id="t-5" /> */}
+        <div className="testimonials">
           <Card
-            for="s1"
-            img="https://images.unsplash.com/photo-1538220856186-0be0e085984d?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGJyZWFrZmFzdHxlbnwwfHwwfHx8MA%3D%3D"
-            id="slide1"
-            day="Breakfast"
-            food={meals.day}
+            day={meals.day}
+            for="t-1"
+            img="https://images.healthshots.com/healthshots/en/uploads/2022/07/25101436/breakfast1.jpg"
+            id="slide4"
+            time="Breakfast"
             details={meals.breakfast}
           />
           <Card
-            for="s2"
-            img="https://img-global.cpcdn.com/recipes/af691d91b2468f78/680x482cq70/simple-lunch-recipe-main-photo.jpg"
-            id="slide2"
-            day="Lunch"
-            food={meals.day}
+            day={meals.day}
+            for="t-2"
+            img="https://s3-ap-south-1.amazonaws.com/betterbutterbucket-silver/chitra-sendhil1453210035569e39b33b9db.jpeg"
+            id="slide4"
+            time="Lunch"
             details={meals.lunch}
           />
           <Card
-            for="s3"
-            img="https://img-global.cpcdn.com/recipes/af691d91b2468f78/680x482cq70/simple-lunch-recipe-main-photo.jpg"
-            id="slide3"
-            day="Snacks"
-            food={meals.day}
+            day={meals.day}
+            for="t-3"
+            img="https://media.istockphoto.com/id/1263686908/photo/mixed-salty-snack-flat-lay-table-scene-on-a-wood-background.webp?b=1&s=170667a&w=0&k=20&c=jwScZKWlgykwVi2pykyXsW-j6MlrahqMA_kapECwcEE="
+            id="slide4"
+            time="Snacks"
             details={meals.snacks}
           />
           <Card
-            for="s4"
+            day={meals.day}
+            for="t-4"
             img="https://static.toiimg.com/thumb/msid-46173052,imgsize-92109,width-400,resizemode-4/46173052.jpg"
             id="slide4"
-            day="Dinner"
-            food={meals.day}
+            time="Dinner"
             details={meals.dinner}
           />
+          {/* <label className="item" htmlFor="t-2">
+            <img src="https://dummyimage.com/150" alt="picture" />
+            <p>
+              "Raw denim you probably haven't heard of them jean short austin.
+              Nesciunt tofu stumptown aliqua, retro synth master cleanse."
+            </p>
+            <h2>- Princy, Web Developer</h2>
+          </label>
+          <label className="item" htmlFor="t-3">
+            <img src="https://dummyimage.com/150" alt="picture" />
+            <p>
+              "Raw denim you probably haven't heard of them jean short austin.
+              Nesciunt tofu stumptown aliqua, retro synth master cleanse."
+            </p>
+            <h2>- Princy, Web Developer</h2>
+          </label>
+          <label className="item" htmlFor="t-4">
+            <img src="https://dummyimage.com/150" alt="picture" />
+            <p>
+              "Raw denim you probably haven't heard of them jean short austin.
+              Nesciunt tofu stumptown aliqua, retro synth master cleanse."
+            </p>
+            <h2>- Princy, Web Developer</h2>
+          </label>
+          <label className="item" htmlFor="t-5">
+            <img src="https://dummyimage.com/150" alt="picture" />
+            <p>
+              "Raw denim you probably haven't heard of them jean short austin.
+              Nesciunt tofu stumptown aliqua, retro synth master cleanse."
+            </p>
+            <h2>- Princy, Web Developer</h2>
+          </label> */}
+        </div>
+        <div className="dots">
+          <label htmlFor="t-1"></label>
+          <label htmlFor="t-2"></label>
+          <label htmlFor="t-3"></label>
+          <label htmlFor="t-4"></label>
+          {/* <label htmlFor="t-5"></label> */}
         </div>
       </div>
+      <h2>Total Calorie Consumed</h2>
     </div>
   );
 };
 
-export default AferLogin;
+export default AfterLogin;
+
+{
+  /* <Card
+            for="t-4"
+            img="https://static.toiimg.com/thumb/msid-46173052,imgsize-92109,width-400,resizemode-4/46173052.jpg"
+            id="slide4"
+            day="Dinner"
+            details={meals.dinner}
+          /> */
+}

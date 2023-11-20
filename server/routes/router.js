@@ -332,4 +332,45 @@ router.get("/daymeal", async (req, res) => {
     console.log("The error is", error);
   }
 });
+
+router.get("/getdata", async (req, res) => {
+  try {
+    const meal = await usermeal.find().sort({ din: 1 });
+    res.json(meal);
+  } catch (error) {
+    console.log("Error", error);
+  }
+});
+router.get("/getlength", async (req, res) => {
+  try {
+    const data = await userdb.find();
+    res.json(data);
+  } catch (err) {
+    console.log(error);
+  }
+});
+
+router.post("/givereview", async (req, res) => {
+  try {
+    const { user, num, mealType } = req.body;
+    const now = new Date();
+    let date = now.getDate();
+    const [person] = await userdb.find({ _id: user });
+    if (!person) {
+      console.log("The user does not exist");
+      return res.status(404).json({ error: "User not found" });
+    }
+    const data = {
+      day: date,
+      time: mealType,
+      rating: num,
+    };
+    console.log(data);
+    person.reviews.push(data);
+    await person.save();
+    res.json(person);
+  } catch (error) {
+    console.log("Error", error);
+  }
+});
 module.exports = router;
