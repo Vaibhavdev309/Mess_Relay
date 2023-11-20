@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Inbox from "./Inbox";
 
 const YourComplaint = () => {
   const [complaints, setComplaints] = useState([]);
@@ -48,7 +49,19 @@ const YourComplaint = () => {
     <div>
       {complaints.map((complaint) => {
         return (
-          <div>
+          <div key={complaint._id}>
+            <Inbox
+              complaintId={complaint._id}
+              name={complaint.fname}
+              subject={complaint.subject}
+              complaint={complaint.complaint}
+              arr={complaint.likedBy}
+            />
+          </div>
+        );
+      })}
+    </div>
+    /*{ <div>
             <p key={complaint._id}>
               <Link
                 onClick={() => {
@@ -59,10 +72,7 @@ const YourComplaint = () => {
               </Link>
               {complaint.complaint}
             </p>
-          </div>
-        );
-      })}
-    </div>
+          </div> }*/
   );
 };
 

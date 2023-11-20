@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const router = new express.Router();
 const authenticate = require("../middleware/authenticate");
 const nodemailer = require("nodemailer");
+const usermela = require("../models/MealSchema");
+const usermeal = require("../models/MealSchema");
 
 //hello this is the new commit
 router.post("/register", async (req, res) => {
@@ -95,13 +97,26 @@ router.get("/logout", authenticate, async (req, res) => {
 });
 
 router.post("/subComp", async (req, res) => {
-  const { complaint, user, fname, regno } = req.body;
+  const {
+    complaint,
+    user,
+    fname,
+    regno,
+    subject,
+    victim,
+    situation,
+    authority,
+  } = req.body;
   try {
     const newComp = new usercomp({
+      subject,
       complaint,
       user,
       fname,
       regno,
+      victim,
+      situation,
+      authority,
     });
     const storeData = await newComp.save();
     res.status(201).json({ status: 201, storeData });
@@ -159,7 +174,6 @@ router.post("/comp/liked/:id", async (req, res) => {
   try {
     // Find the complaint by ID
     const complaint = await usercomp.findById(_id);
-
     if (!complaint) {
       return res.status(404).json({ error: "Complaint not found" });
     }
@@ -186,33 +200,26 @@ router.post("/comp/liked/:id", async (req, res) => {
 });
 router.post("/comp/commented/:id", async (req, res) => {
   const _id = req.params.id;
-  const { user, comment } = req.body;
-
+  const { user, comment, fname } = req.body;
   try {
-    // Find the complaint by ID
     const complaint = await usercomp.findById(_id);
-
     if (!complaint) {
       return res.status(404).json({ error: "Complaint not found" });
     }
-    usercomp.commentedBy.push({ user: comment });
-    await usercomp.save();
-    return res.status(201).json({ message: "successfully added the message" });
-    // Check if the user ID is already in the liked array
-    // if (!complaint.commentedBy.includes(user)) {
-    //   // If not, push the user ID into the liked array
-    //   complaint.liked.push(user);
+    if (!complaint.commentedBy.includes(user)) {
+      // If not, push the user ID into the liked array
+      complaint.liked.push(user);
 
-    //   // Save the updated complaint
-    //   await complaint.save();
+      // Save the updated complaint
+      await complaint.save();
 
-    //   return res.status(201).json("The liked person is added to the list");
-    // } else {
-    //   const index = complaint.liked.indexOf(user);
-    //   complaint.liked.splice(index, 1);
-    //   await complaint.save();
-    //   return res.status(201).json({ message: "Like removed" });
-    // }
+      return res.status(201).json("The liked person is added to the list");
+    } else {
+      const index = complaint.liked.indexOf(user);
+      complaint.liked.splice(index, 1);
+      await complaint.save();
+      return res.status(201).json({ message: "Like removed" });
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -241,4 +248,129 @@ router.get("/comp/resolved/:id", async (req, res) => {
   }
 });
 
+router.get("/complaintbox/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const complaint = await usercomp
+      .find({ _id })
+      .then((complaint) => res.json(complaint));
+    if (!complaint) {
+      return res.status(404).json({ message: "Complaint not found" });
+    }
+  } catch (error) {
+    throw error;
+  }
+});
+
+router.put("/mealupdate", async (req, res) => {
+  try {
+    const { day, breakfast, lunch, snacks, dinner, calorie, expense, din } =
+      req.body;
+    let mealfound = await usermeal.findOne({ day });
+    if (!mealfound) {
+      const newMeal = new usermeal({
+        day,
+        calorie,
+        expense,
+        din,
+        breakfast,
+        lunch,
+        snacks,
+        dinner,
+      });
+
+      const ans = await newMeal.save();
+
+      return res
+        .status(201)
+        .json({ message: "New meal created successfully", ans });
+    }
+
+    mealfound.breakfast = breakfast;
+    mealfound.lunch = lunch;
+    mealfound.snacks = snacks;
+    mealfound.dinner = dinner;
+    mealfound.calorie = calorie;
+    mealfound.expense = expense;
+
+    const ans = await mealfound.save();
+
+    res.status(200).json({ message: "Meal updated successfully", ans });
+  } catch (error) {
+    console.error("Error updating/creating meal:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/findmeal", async (req, res) => {
+  const ans = await usermeal.find().sort({ din: 1 });
+  res.json(ans);
+});
+
+router.post("/finddaymeal", async (req, res) => {
+  const { day } = req.body; // Destructure day from the request body
+  try {
+    const ans = await usermeal.find({ day: day }); // Use the extracted day
+    res.json(ans);
+  } catch (error) {
+    console.error("Error fetching day meal data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/daymeal", async (req, res) => {
+  try {
+    const now = new Date();
+    let day = now.getDay();
+    din = day;
+    const meal = await usermeal.find({ din: din });
+    if (!meal) {
+      res.json("The meal is not found");
+    }
+    res.json(meal);
+  } catch (error) {
+    console.log("The error is", error);
+  }
+});
+
+router.get("/getdata", async (req, res) => {
+  try {
+    const meal = await usermeal.find().sort({ din: 1 });
+    res.json(meal);
+  } catch (error) {
+    console.log("Error", error);
+  }
+});
+router.get("/getlength", async (req, res) => {
+  try {
+    const data = await userdb.find();
+    res.json(data);
+  } catch (err) {
+    console.log(error);
+  }
+});
+
+router.post("/givereview", async (req, res) => {
+  try {
+    const { user, num, mealType } = req.body;
+    const now = new Date();
+    let date = now.getDate();
+    const [person] = await userdb.find({ _id: user });
+    if (!person) {
+      console.log("The user does not exist");
+      return res.status(404).json({ error: "User not found" });
+    }
+    const data = {
+      day: date,
+      time: mealType,
+      rating: num,
+    };
+    console.log(data);
+    person.reviews.push(data);
+    await person.save();
+    res.json(person);
+  } catch (error) {
+    console.log("Error", error);
+  }
+});
 module.exports = router;

@@ -4,7 +4,7 @@ import "./HeroStyle.css";
 const Hero = () => {
   return (
     <div class="hero">
-      <div class="container1">
+      <div class="container2">
         <div class="info">
           <h1>Title</h1>
           <h2>Lorem ipsum dolor sit amet consectetur.</h2>

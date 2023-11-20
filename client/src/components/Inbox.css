@@ -1,0 +1,94 @@
+/* Add your existing CSS styles here */
+
+.bigContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto;
+}
+
+.container1 {
+  margin: 10px;
+  padding: 20px;
+  background-color: #c1c1c1;
+  color: black;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80vw;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.container1:hover {
+  transform: translateY(-5px) rotateX(2deg); /* Adjust the rotateX value as needed */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.name {
+  width: 20%;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.subject {
+  width: 20%;
+  font-size: 18px;
+  color: #000000;
+}
+
+.complaint {
+  width: 40%;
+  font-size: 16px;
+  color: #555;
+}
+
+.icon {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.icon i {
+  font-size: 1rem;
+  color: #888;
+}
+
+.icon div {
+  display: flex;
+  gap: 10px;
+}
+.like {
+  display: flex;
+  flex-direction: column;
+}
+.liked {
+  color: rgb(12, 81, 12) !important;
+}
+@media screen and (max-width: 800px) {
+  .container1 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .complaint {
+    width: 100%;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  .icon {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+
+  .icon i {
+    font-size: 1.5rem;
+  }
+}
+
+/* Additional styles as needed */

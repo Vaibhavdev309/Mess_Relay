@@ -21,7 +21,7 @@ setInterval(async () => {
       },
     });
 
-    // send mail with defined transport object
+    //send mail with defined transport object
     const info = await transporter.sendMail({
       from: '"Sudosu Senpai👻" <sudosusenpai@gmail.com>',
       to: "vaibhav.dev.309@gmail.com",
