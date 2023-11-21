@@ -7,6 +7,8 @@ const authenticate = require("../middleware/authenticate");
 const nodemailer = require("nodemailer");
 const usermela = require("../models/MealSchema");
 const usermeal = require("../models/MealSchema");
+const multer = require("multer");
+const path = require("path");
 
 //Post request to register a new user with validation
 router.post("/register", async (req, res) => {
@@ -376,6 +378,43 @@ router.get("/getlength", async (req, res) => {
   }
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadsPath = path.join(__dirname, "../uploads/");
+    cb(null, uploadsPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+router.post("/upload", upload.single("image"), async (req, res) => {
+  try {
+    const { user } = req.body;
+    const person = await userdb.findById({ _id: user });
+    person.image = req.file.filename;
+    await person.save();
+    res.json(person);
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+router.get("/getimage/:userId", async (req, res) => {
+  try {
+    const user = await userdb
+      .findById({ _id: req.params.userId })
+      .select("image");
+    if (!user || !user.image) {
+      return res.status(404).send("Image not found");
+    }
+    console.log("The ans is ", user);
+    res.json(user);
+  } catch (error) {
+    console.error("Error fetching image:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 // router.post("/givereview", async (req, res) => {
 //   try {
 //     const { user, num, mealType } = req.body;

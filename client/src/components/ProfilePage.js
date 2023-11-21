@@ -1,21 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ProfilePage.css";
+import axios from "axios";
 
 const ProfilePage = () => {
+  const user = localStorage.getItem("usersdataid");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fetchImage = () => {
+    axios
+      .get(`/getimage/${user}`)
+      .then((res) => {
+        console.log("The ans is ", res.data);
+        setSelectedFile(res.data.image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    fetchImage();
+  }, []);
+  const ImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      console.log("File selected:", file);
+    }
+  };
+  const handleUpload = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("image", selectedFile);
+    formData.append("user", user);
+    try {
+      const response = await axios.post("/upload", formData);
+      setSelectedFile(response.data.image);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
   return (
     <div>
       <div class="container emp-profile">
-        <form method="post">
+        <form
+          method="post"
+          onSubmit={handleUpload}
+          encType="multipart/form-data"
+        >
           <div class="row">
             <div class="col-md-4">
               <div class="profile-img">
-                <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
-                  alt=""
-                />
+                <img src={`http://localhost:8009/${selectedFile}`} alt="" />
                 <div class="file btn btn-lg btn-primary">
-                  Change Photo
-                  <input type="file" name="file" />
+                  {/* Change Photo */}
+                  <input type="file" name="image" onChange={ImageUpload} />
+                  <button type="submit">Submit</button>
                 </div>
               </div>
             </div>

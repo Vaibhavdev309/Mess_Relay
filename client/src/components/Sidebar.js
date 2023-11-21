@@ -66,11 +66,11 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/mainpage/myprofile">
             <span className="icon">
-              <i class="fa-solid fa-right-from-bracket"></i>
+              <i class="fa-regular fa-user"></i>
             </span>
-            <span className="text">logout</span>
+            <span className="text">My Profile</span>
           </a>
         </li>
       </ul>

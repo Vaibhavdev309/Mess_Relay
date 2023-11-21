@@ -31,6 +31,9 @@ const userSchema = new mongoose.Schema({
       rating: { type: Number, required: true },
     },
   ],
+  image: {
+    type: String,
+  },
 });
 
 userSchema.pre("save", async function (next) {
