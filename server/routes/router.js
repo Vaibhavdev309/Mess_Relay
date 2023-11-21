@@ -10,7 +10,7 @@ const usermeal = require("../models/MealSchema");
 const multer = require("multer");
 const path = require("path");
 
-//Post request to register a new user with validation
+//hello this is the new commit
 router.post("/register", async (req, res) => {
   const { fName, email, regNo, password, cPassword, role, hostel } = req.body;
   if (
