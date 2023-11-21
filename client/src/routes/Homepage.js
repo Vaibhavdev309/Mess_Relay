@@ -29,7 +29,7 @@ function Homepage() {
     <>
       <Navbar />
       <Hero />
-      <Slider />
+      {/* <Slider /> */}
       <About />
       {/* <Services /> */}
       <Footer />

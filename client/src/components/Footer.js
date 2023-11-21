@@ -4,75 +4,96 @@ import "./FooterStyle.css";
 const Footer = () => {
   return (
     <div>
-      <footer class="footer-distributed">
-        <div class="footer-left">
-          <h3>
-            Company<span>logo</span>
-          </h3>
+      <section class="footer">
+        <div class="footer-row">
+          <div class="footer-col">
+            <h4>Info</h4>
+            <ul class="links">
+              <li>
+                <a href="#">About Us</a>
+              </li>
+              <li>
+                <a href="#">Compressions</a>
+              </li>
+              <li>
+                <a href="#">Customers</a>
+              </li>
+              <li>
+                <a href="#">Service</a>
+              </li>
+              <li>
+                <a href="#">Collection</a>
+              </li>
+            </ul>
+          </div>
 
-          <p class="footer-links">
-            <a href="#" class="link-1">
-              Home
-            </a>
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <ul class="links">
+              <li>
+                <a href="#">Free Designs</a>
+              </li>
+              <li>
+                <a href="#">Latest Designs</a>
+              </li>
+              <li>
+                <a href="#">Themes</a>
+              </li>
+              <li>
+                <a href="#">Popular Designs</a>
+              </li>
+              <li>
+                <a href="#">Art Skills</a>
+              </li>
+              <li>
+                <a href="#">New Uploads</a>
+              </li>
+            </ul>
+          </div>
 
-            <a href="#">Blog</a>
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="links">
+              <li>
+                <a href="#">Customer Agreement</a>
+              </li>
+              <li>
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#">GDPR</a>
+              </li>
+              <li>
+                <a href="#">Security</a>
+              </li>
+              <li>
+                <a href="#">Testimonials</a>
+              </li>
+              <li>
+                <a href="#">Media Kit</a>
+              </li>
+            </ul>
+          </div>
 
-            <a href="#">Pricing</a>
-
-            <a href="#">About</a>
-
-            <a href="#">Faq</a>
-
-            <a href="#">Contact</a>
-          </p>
-
-          <p class="footer-company-name">Company Name © 2015</p>
-        </div>
-
-        <div class="footer-center">
-          <div>
-            <i class="fa fa-map-marker"></i>
+          <div class="footer-col">
+            <h4>Newsletter</h4>
             <p>
-              <span>444 S. Cedros Ave</span> Solana Beach, California
+              Subscribe to our newsletter for a weekly dose of news, updates,
+              helpful tips, and exclusive offers.
             </p>
-          </div>
-
-          <div>
-            <i class="fa fa-phone"></i>
-            <p>+1.555.555.5555</p>
-          </div>
-
-          <div>
-            <i class="fa fa-envelope"></i>
-            <p>
-              <a href="mailto:support@company.com">support@company.com</a>
-            </p>
-          </div>
-        </div>
-
-        <div class="footer-right">
-          <p class="footer-company-about">
-            <span>About the company</span>
-            Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
-            euismod convallis velit, eu auctor lacus vehicula sit amet.
-          </p>
-
-          <div class="footer-icons">
-            <a href="#">
+            <form action="#">
+              <input type="text" placeholder="Your email" required />
+              <button type="submit">SUBSCRIBE</button>
+            </form>
+            <div class="icons">
               <i class="fa-brands fa-facebook-f"></i>
-            </a>
-            <a href="#">
               <i class="fa-brands fa-twitter"></i>
-            </a>
-            <a href="#">
               <i class="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="#">
               <i class="fa-brands fa-github"></i>
-            </a>
+            </div>
           </div>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };
