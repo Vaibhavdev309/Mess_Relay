@@ -15,10 +15,10 @@ const TimeTable = () => {
   const [lunchCalorie, setLunchCalorie] = useState("");
   const [snacksCalorie, setSnacksCalorie] = useState("");
   const [dinnerCalorie, setDinnerCalorie] = useState("");
-  const [breakfastExpense, setBreakfastExpense] = useState(0);
-  const [lunchExpense, setLunchExpense] = useState(0);
-  const [snacksExpense, setSnacksExpense] = useState(0);
-  const [dinnerExpense, setDinnerExpense] = useState(0);
+  const [breakfastExpense, setBreakfastExpense] = useState();
+  const [lunchExpense, setLunchExpense] = useState();
+  const [snacksExpense, setSnacksExpense] = useState();
+  const [dinnerExpense, setDinnerExpense] = useState();
   const [meals, setMeals] = useState([]);
   const checkData = async () => {
     try {
@@ -29,14 +29,14 @@ const TimeTable = () => {
         setLunch("");
         setSnacks("");
         setDinner("");
-        setBreakfastExpense(0);
-        setLunchExpense(0);
-        setSnacksExpense(0);
-        setDinnerExpense(0);
-        setBreakfastCalorie(0);
-        setLunchCalorie(0);
-        setSnacksCalorie(0);
-        setDinnerCalorie(0);
+        setBreakfastExpense();
+        setLunchExpense();
+        setSnacksExpense();
+        setDinnerExpense();
+        setBreakfastCalorie();
+        setLunchCalorie();
+        setSnacksCalorie();
+        setDinnerCalorie();
       } else {
         const ans = response.data[0];
         setBreakfast(ans.breakfast);
@@ -215,7 +215,7 @@ const TimeTable = () => {
                 placeholder="Lunch Expense"
                 type="text"
                 onChange={(e) => {
-                  setLunch(e.target.value);
+                  setLunchExpense(e.target.value);
                 }}
                 value={lunchExpense}
               />
@@ -244,11 +244,10 @@ const TimeTable = () => {
                 placeholder="snacks Expense"
                 type="text"
                 onChange={(e) => {
-                  setSnacks(e.target.value);
+                  setSnacksExpense(e.target.value);
                 }}
                 value={snacksExpense}
               />
-              <label for="calorie">Calorie</label>
               <input
                 id="snacksCalorie"
                 placeholder="Snacks calorie"
@@ -276,11 +275,10 @@ const TimeTable = () => {
                 placeholder="Dinner Expense"
                 type="text"
                 onChange={(e) => {
-                  setDinner(e.target.value);
+                  setDinnerExpense(e.target.value);
                 }}
                 value={dinnerExpense}
               />
-              <label for="calorie">Calorie</label>
               <input
                 id="dinnerCalorie"
                 placeholder="dinner calorie"

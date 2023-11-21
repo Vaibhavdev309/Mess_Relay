@@ -7,8 +7,14 @@ const mealSchema = new mongoose.Schema({
   lunch: { type: String, required: true },
   snacks: { type: String, required: true },
   dinner: { type: String, required: true },
-  calorie: { type: Number },
-  expense: { type: Number },
+  breakfastCalorie: { type: Number },
+  breakfastExpense: { type: Number },
+  lunchCalorie: { type: Number },
+  lunchExpense: { type: Number },
+  snacksCalorie: { type: Number },
+  snacksExpense: { type: Number },
+  dinnerCalorie: { type: Number },
+  dinnerExpense: { type: Number },
   food: { type: String },
 });
 
