@@ -22,3 +22,21 @@ const Mainpage = () => {
 };
 
 export default Mainpage;
+
+// const navigate = useNavigate();
+//   const UserValid = async () => {
+//     let token = localStorage.getItem("usersdatatoken");
+//     const res = await fetch("/validUser", {
+//       method: "GET",
+//       headers: { "Content-Type": "application/json", Authorization: token },
+//     });
+//     const data = await res.json();
+//     if (data.status === 401 || !data) {
+//       navigate("*");
+//     } else {
+//       navigate("/mainpage");
+//     }
+//   };
+//   useEffect(() => {
+//     UserValid();
+//   }, []);

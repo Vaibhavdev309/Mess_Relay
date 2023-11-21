@@ -14,6 +14,7 @@ import Inpage from "./routes/Inpage.js";
 import TimeTable from "./components/TimeTable.js";
 import AfterLogin from "./components/AferLogin.js";
 import MyChart from "./components/Chart.js";
+import ProfilePage from "./components/ProfilePage.js";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="timetable" element={<TimeTable />}></Route>
           <Route path="afterlogin" element={<AfterLogin />}></Route>
           <Route path="reviewchart" element={<MyChart />}></Route>
+          <Route path="myprofile" element={<ProfilePage />}></Route>
         </Route>
         <Route path="/dash" element={<Dashboard />} />
         <Route path="/error" element={<Error />} />

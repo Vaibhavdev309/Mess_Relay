@@ -264,14 +264,34 @@ router.get("/complaintbox/:id", async (req, res) => {
 
 router.put("/mealupdate", async (req, res) => {
   try {
-    const { day, breakfast, lunch, snacks, dinner, calorie, expense, din } =
-      req.body;
+    const {
+      day,
+      breakfast,
+      lunch,
+      snacks,
+      dinner,
+      breakfastCalorie,
+      breakfastExpense,
+      lunchCalorie,
+      lunchExpense,
+      snacksCalorie,
+      snacksExpense,
+      dinnerCalorie,
+      dinnerExpense,
+      din,
+    } = req.body;
     let mealfound = await usermeal.findOne({ day });
     if (!mealfound) {
       const newMeal = new usermeal({
         day,
-        calorie,
-        expense,
+        breakfastCalorie,
+        breakfastExpense,
+        lunchCalorie,
+        lunchExpense,
+        snacksCalorie,
+        snacksExpense,
+        dinnerCalorie,
+        dinnerExpense,
         din,
         breakfast,
         lunch,
@@ -290,8 +310,14 @@ router.put("/mealupdate", async (req, res) => {
     mealfound.lunch = lunch;
     mealfound.snacks = snacks;
     mealfound.dinner = dinner;
-    mealfound.calorie = calorie;
-    mealfound.expense = expense;
+    mealfound.breakfastCalorie = breakfastCalorie;
+    mealfound.breakfastExpense = breakfastExpense;
+    mealfound.lunchCalorie = lunchCalorie;
+    mealfound.lunchExpense = lunchExpense;
+    mealfound.snacksCalorie = snacksCalorie;
+    mealfound.snacksExpense = snacksExpense;
+    mealfound.dinnerCalorie = dinnerCalorie;
+    mealfound.dinnerExpense = dinnerExpense;
 
     const ans = await mealfound.save();
 
@@ -350,27 +376,31 @@ router.get("/getlength", async (req, res) => {
   }
 });
 
-router.post("/givereview", async (req, res) => {
-  try {
-    const { user, num, mealType } = req.body;
-    const now = new Date();
-    let date = now.getDate();
-    const [person] = await userdb.find({ _id: user });
-    if (!person) {
-      console.log("The user does not exist");
-      return res.status(404).json({ error: "User not found" });
-    }
-    const data = {
-      day: date,
-      time: mealType,
-      rating: num,
-    };
-    console.log(data);
-    person.reviews.push(data);
-    await person.save();
-    res.json(person);
-  } catch (error) {
-    console.log("Error", error);
-  }
-});
+// router.post("/givereview", async (req, res) => {
+//   try {
+//     const { user, num, mealType } = req.body;
+//     const [meal] = await usermeal.find({ din: din });
+//     const now = new Date();
+//     let date = now.getDate();
+//     let din = now.getDay();
+//     const [person] = await userdb.find({ _id: user });
+//     if (!person) {
+//       console.log("The user does not exist");
+//       return res.status(404).json({ error: "User not found" });
+//     }
+//     const calorie = await usermeal.find();
+//     const data = {
+//       day: date,
+//       time: mealType,
+//       rating: num,
+//       calorie: ,
+//     };
+//     console.log(data);
+//     person.reviews.push(data);
+//     await person.save();
+//     res.json(person);
+//   } catch (error) {
+//     console.log("Error", error);
+//   }
+// });
 module.exports = router;
