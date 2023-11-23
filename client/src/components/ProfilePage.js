@@ -31,6 +31,7 @@ const ProfilePage = () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
     formData.append("user", user);
+    console.log(formData);
     try {
       const response = await axios.post("/upload", formData);
       setSelectedFile(response.data.image);

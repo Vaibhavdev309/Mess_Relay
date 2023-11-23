@@ -10,8 +10,27 @@ const CreateComplaint = () => {
   const [authority, setAuthority] = useState("");
   const [subject, setSubject] = useState("");
   const [complaint, setComplaint] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const navigate = useNavigate();
 
+  const ImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      console.log("File selected:", file);
+    }
+
+    // formData.append("user", user);
+    // try {
+    //   const response = await axios.post("/upload", formData);
+    //   setSelectedFile(response.data.image);
+    // } catch (error) {
+    //   console.error("Error uploading file:", error);
+    // }
+  };
+  // const handleUpload = async (event) => {
+  //   event.preventDefault();
+  // };
   const ComplaintValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
     const res = await fetch("/validUser", {
@@ -29,25 +48,28 @@ const CreateComplaint = () => {
     ComplaintValid();
   }, []);
   const subComp = (event) => {
+    event.preventDefault();
     const fname = localStorage.getItem("usersdatafname");
     const user = localStorage.getItem("usersdataid");
     const regno = localStorage.getItem("usersdataregno");
-    event.preventDefault();
+    const formData = new FormData();
+    formData.append("compimg", selectedFile);
+    formData.append("subject", subject);
+    formData.append("complaint", complaint);
+    formData.append("user", user);
+    formData.append("regno", regno);
+    formData.append("fname", fname);
+    formData.append("victim", victim);
+    formData.append("situation", situation);
+    formData.append("authority", authority);
+    console.log(formData);
     if (complaint === "" || subject === "" || victim === "") {
       console.log("Please enter valid subject and complaint before submitting");
     } else {
       axios
-        .post("/subComp", {
-          subject,
-          complaint,
-          user,
-          regno,
-          fname,
-          victim,
-          situation,
-          authority,
-        })
+        .post("/subComp", formData)
         .then(async (response) => {
+          // Handle the response
           const res = response.data;
           if (res.status === 201) {
             navigate("/mainpage/createcomplaint");
@@ -68,7 +90,7 @@ const CreateComplaint = () => {
       <div className="container3">
         <div className="title">Mess Complaint Form</div>
         <div className="content">
-          <form action="#">
+          <form method="post" enctype="multipart/form-data">
             <div className="user-details">
               <div className="input-box">
                 <span className="details">Name of Victim</span>
@@ -124,7 +146,12 @@ const CreateComplaint = () => {
               </div>
               <div className="input-box">
                 <span className="details">Add Image</span>
-                <input className="fileadd" type="file" accept="image/*" />
+                <input
+                  className="fileadd"
+                  type="file"
+                  name="compimg"
+                  onChange={ImageUpload}
+                />
               </div>
             </div>
             <div className="input-box">

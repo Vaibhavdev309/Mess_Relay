@@ -78,6 +78,22 @@ body {
   border-radius: 50%;
   display: inline-block;
 }
+.comp {
+  overflow: hidden; /* Clear floats */
+}
+
+.complaint-text {
+  width: 60%; /* Adjust width as needed */
+  float: left;
+  box-sizing: border-box;
+  margin-right: 20px; /* Add margin for spacing */
+}
+
+.complaint-image {
+  width: 40%; /* Adjust width as needed */
+  float: right;
+  box-sizing: border-box;
+}
 
 .hit-voting:hover {
   color: blue;

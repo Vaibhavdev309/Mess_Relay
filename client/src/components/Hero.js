@@ -6,13 +6,17 @@ const Hero = () => {
     <div class="hero">
       <div class="container2">
         <div class="info">
-          <h1>Title</h1>
-          <h2>Lorem ipsum dolor sit amet consectetur.</h2>
-          <p>
+          <h1>Imperial Mess Administration</h1>
+          <h2>
+            "Global Cleanup Initiative: <br />
+            Uniting Against Mess,
+            <br /> One Complaint at a Time!"
+          </h2>
+          {/* <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem
             vero ratione vitae dicta explicabo perferendis amet quis provident
             molestiae magni!
-          </p>
+          </p> */}
           <a class="click" href="/login">
             Login
           </a>

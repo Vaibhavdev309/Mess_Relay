@@ -2,20 +2,35 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
+import "./Complaint.css";
 
 const Complaint = () => {
   const [complaints, setComplaints] = useState([]);
   const { id } = useParams();
   const user = localStorage.getItem("usersdataid");
   const fname = localStorage.getItem("usersdatafname");
+  const [selectedImg, setSelectedImg] = useState("");
   const [comment, setComment] = useState("");
+  const fetchImage = () => {
+    axios
+      .get(`/fetchimage/${id}`)
+      .then((res) => {
+        console.log("The ans is ", res.data);
+        setSelectedImg(res.data.image.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    fetchImage();
+  }, []);
   const doComment = (event) => {
     event.preventDefault();
     axios
       .post(`/comp/commented/${id}`, { user, comment, fname })
       .then(() => {
         setComment("");
-        console.log("successfully add the comment to database");
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +75,18 @@ const Complaint = () => {
         {complaints.length > 0 && (
           <>
             <h2 className="mt-3 mb-4 pb-2">{complaints[0].subject}</h2>
-            <p className="mt-3 mb-4 pb-2">{complaints[0].complaint}</p>
+            <div className="comp">
+              <p className="complaint-text mt-3 mb-4 pb-2">
+                {complaints[0].complaint}
+                {selectedImg && (
+                  <img
+                    src={`http://localhost:8009/${selectedImg}`}
+                    alt=""
+                    className="complaint-image"
+                  />
+                )}
+              </p>
+            </div>
           </>
         )}
         <div className="small d-flex justify-content-start">

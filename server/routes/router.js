@@ -11,6 +11,16 @@ const multer = require("multer");
 const path = require("path");
 
 //hello this is the new commit
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadsPath = path.join(__dirname, "../uploads/");
+    cb(null, uploadsPath);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
 router.post("/register", async (req, res) => {
   const { fName, email, regNo, password, cPassword, role, hostel } = req.body;
   if (
@@ -98,7 +108,8 @@ router.get("/logout", authenticate, async (req, res) => {
   }
 });
 
-router.post("/subComp", async (req, res) => {
+router.post("/subComp", upload.single("compimg"), async (req, res) => {
+  console.log(req.body);
   const {
     complaint,
     user,
@@ -109,8 +120,11 @@ router.post("/subComp", async (req, res) => {
     situation,
     authority,
   } = req.body;
+  console.log(req.file);
+  // const img = { data: req.file.finename, contentType: "image/png" };
   try {
     const newComp = new usercomp({
+      image: { data: req.file.filename, contentType: req.file.mimetype },
       subject,
       complaint,
       user,
@@ -378,19 +392,10 @@ router.get("/getlength", async (req, res) => {
   }
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadsPath = path.join(__dirname, "../uploads/");
-    cb(null, uploadsPath);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-const upload = multer({ storage: storage });
 router.post("/upload", upload.single("image"), async (req, res) => {
   try {
     const { user } = req.body;
+    console.log(req.file);
     const person = await userdb.findById({ _id: user });
     person.image = req.file.filename;
     await person.save();
@@ -400,6 +405,9 @@ router.post("/upload", upload.single("image"), async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+// router.post("/compimg", upload.single("image"), async (req, res) => {
+//   cont newImage = new usercomp({})
+// });
 router.get("/getimage/:userId", async (req, res) => {
   try {
     const user = await userdb
@@ -410,6 +418,22 @@ router.get("/getimage/:userId", async (req, res) => {
     }
     console.log("The ans is ", user);
     res.json(user);
+  } catch (error) {
+    console.error("Error fetching image:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+router.get("/fetchimage/:id", async (req, res) => {
+  try {
+    const comp = await usercomp
+      .findById({ _id: req.params.id })
+      .select("image");
+    console.log(comp);
+    if (!comp || !comp.image) {
+      return res.status(404).send("Image not found");
+    }
+    console.log("The ans is ", comp);
+    res.json(comp);
   } catch (error) {
     console.error("Error fetching image:", error);
     res.status(500).json({ message: "Internal Server Error" });

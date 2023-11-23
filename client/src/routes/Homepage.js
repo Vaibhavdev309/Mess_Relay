@@ -6,6 +6,12 @@ import Navbar from "../components/Navbar";
 import Services from "../components/Services";
 import Slider from "../components/Slider";
 import { useEffect } from "react";
+import Testimonials from "../components/Testimonials";
+import Faq from "../components/Faq";
+import ContactUs from "../components/ContactUs";
+import Intro from "../components/Intro";
+import "./Homepage.css";
+import Gallery from "../components/Gallery";
 
 function Homepage() {
   const navigate = useNavigate();
@@ -31,7 +37,12 @@ function Homepage() {
       <Hero />
       {/* <Slider /> */}
       <About />
-      {/* <Services /> */}
+      <Gallery />
+      <Services />
+      <Testimonials />
+      <ContactUs />
+      <Faq />
+      <Intro />
       <Footer />
     </>
   );

@@ -1,0 +1,48 @@
+@import url(https://fonts.bunny.net/css?family=amita:700);
+
+/* body {
+  background: url(https://res.cloudinary.com/ritalbradley/image/upload/v1657644013/pexels-elijah-o_donnell-3473569_o7ohfd.jpg)
+    center center/cover no-repeat;
+  min-height: 100vh;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+} */
+
+.galleryheading {
+  color: #fefae0;
+  font-family: Amita;
+  margin: 20px auto;
+  width: 100%;
+  font-size: 3rem;
+  text-align: center;
+  border-bottom: 10px double #bc6c25;
+}
+
+.galleryimage {
+  width: 300px;
+  height: 200px;
+  margin: 10px;
+  border: 10px solid #fefae0;
+  -webkit-filter: sepia(100%);
+  filter: sepia(100%);
+  transition-duration: 1s;
+}
+
+.galleryimage:hover {
+  border: 5px solid #fff;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  -webkit-filter: none;
+  filter: none;
+}
+
+.container9 {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,29 +1,34 @@
-.hero{
-  padding:0;
-    width: 100%;
-    height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0, 0.7),rgba(255,0,0, 0.2)),url(https://assets.mynetdiary.com/blog/meal-plan-template-for-weight-loss.jpeg);
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    color: #fff;
+@import url(https://fonts.bunny.net/css?family=amita:700);
+.hero {
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url("./hero.jpg");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: #fff;
 }
 .container2 {
   width: 100%;
   height: 100%;
-  max-width: 1200px;
+  /* max-width: 1400px; */
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: left;
 }
+.info {
+  font-family: Amita !important;
+  padding-left: 2rem;
+}
 .info h1 {
   font-size: 3rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   font-family: cursive;
 }
 .info h2 {
-    font-family: cursive;
+  font-family: cursive;
   font-size: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -31,7 +36,7 @@
   font-size: 1.2rem;
   max-width: 50%;
 }
-.info .click{
+.info .click {
   text-decoration: none;
   display: inline-block;
   background-color: #fff;
@@ -46,4 +51,3 @@
     font-size: 10px;
   }
 }
-
