@@ -16,7 +16,7 @@ const Testimonials = () => {
               always so low.
             </p>
           </blockquote>
-          <h3>Sue Shei</h3>
+          <h3>Vaibhav kumar maurya</h3>
           <h5>Founder</h5>
         </figcaption>
       </figure>
