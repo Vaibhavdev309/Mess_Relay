@@ -151,3 +151,7 @@ body {
     margin-left: 0;
   }
 }
+
+.text-one ,.text-two{
+  font-weight: bold;
+color: #3e2093 !important; }

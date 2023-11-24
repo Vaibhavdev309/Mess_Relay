@@ -10,27 +10,26 @@ const ContactUs = () => {
             <div class="address details">
               <i class="fas fa-map-marker-alt"></i>
               <div class="topic">Address</div>
-              <div class="text-one">Surkhet, NP12</div>
-              <div class="text-two">Birendranagar 06</div>
+              <div class="text-one">Patel Hostel</div>
+              <div class="text-two">MNNIT Allahabad</div>
             </div>
             <div class="phone details">
               <i class="fas fa-phone-alt"></i>
               <div class="topic">Phone</div>
-              <div class="text-one">+0098 9893 5647</div>
-              <div class="text-two">+0096 3434 5678</div>
+              <div class="text-one">+91 6394529807</div>
+              <div class="text-two">+91 9335038656</div>
             </div>
             <div class="email details">
               <i class="fas fa-envelope"></i>
               <div class="topic">Email</div>
-              <div class="text-one">codinglab@gmail.com</div>
-              <div class="text-two">info.codinglab@gmail.com</div>
+              <div class="text-one">pranavkashikey0001@gmail.com</div>
+              <div class="text-two">gauravxxxx@gmail.com</div>
             </div>
           </div>
           <div class="right-side">
             <div class="topic-text">Send us a message</div>
             <p>
-              If you have any work from me or any types of quries related to my
-              tutorial, you can send me message from here. It's my pleasure to
+              If you have any types of quries related to login or filing complaint our to give any feedback, you can send me message from here. It's my pleasure to
               help you.
             </p>
             <form action="#">

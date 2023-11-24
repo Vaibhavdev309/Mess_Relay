@@ -14,6 +14,7 @@
   margin: 10px;
   min-width: 250px;
   max-width: 310px;
+  /* height: 300px; */
   width: 100%;
   background-color: #000000;
   color: #ffffff;
@@ -25,12 +26,18 @@
 .snip1574 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  font-weight: bolder;
+  font-style: italic;
+  /* background-size: cover; */
 }
 
 .snip1574 img {
   max-width: 100%;
   vertical-align: top;
   opacity: 0.7;
+  height: 300px;
+  width: 350px;
+  
 }
 
 .snip1574 figcaption {
