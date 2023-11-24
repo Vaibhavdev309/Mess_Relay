@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import "./header.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LogoutUser = async (history) => {
-  // Pass useNavigate as a parameter
   let token = localStorage.getItem("usersdatatoken");
   const res = await fetch("/logout", {
     method: "GET",
@@ -26,8 +26,25 @@ const LogoutUser = async (history) => {
 };
 
 const Header = () => {
-  const history = useNavigate(); // Get useNavigate function
-  let fName = localStorage.getItem("usersdatafname");
+  const fName = localStorage.getItem("usersdatafname");
+  // const [selectedImg, setSelectedImg] = useState("");
+  const history = useNavigate();
+  // const id = localStorage.getItem("usersdataid");
+  const user = localStorage.getItem("usersdataid");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fetchImage = () => {
+    axios
+      .get(`/getimage/${user}`)
+      .then((res) => {
+        setSelectedFile(res.data.image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    fetchImage();
+  }, []);
 
   return (
     <header>
@@ -40,7 +57,13 @@ const Header = () => {
             }}
             style={{ backgroundColor: "blue" }}
           >
-            H
+            {selectedFile && (
+              <img
+                src={`http://localhost:8009/${selectedFile}`}
+                style={{ width: "40px", height: "40px" }}
+                alt=""
+              />
+            )}
           </Avatar>
         </div>
       </nav>

@@ -16,6 +16,7 @@ import AfterLogin from "./components/AferLogin.js";
 import MyChart from "./components/Chart.js";
 import ProfilePage from "./components/ProfilePage.js";
 import Inuser from "./components/Inuser.js";
+import GetUser from "./components/GetUser.js";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
           <Route path="afterlogin" element={<AfterLogin />}></Route>
           <Route path="myprofile" element={<ProfilePage />}></Route>
           <Route path="reviewchart" element={<MyChart />}></Route>
-          <Route path="alluser" element={<Inuser />}></Route>
+          <Route path="allusers" element={<GetUser />}></Route>
         </Route>
         <Route path="/dash" element={<Dashboard />} />
         <Route path="/error" element={<Error />} />

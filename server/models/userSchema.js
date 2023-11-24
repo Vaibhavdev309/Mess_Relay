@@ -33,8 +33,9 @@ const userSchema = new mongoose.Schema({
   ],
   image: {
     type: String,
+    default: "random.jpg",
   },
-  blocked: { type: Boolean, default: false },
+  blockedUntil: { type: Date },
 });
 
 userSchema.pre("save", async function (next) {

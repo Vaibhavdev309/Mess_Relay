@@ -4,7 +4,25 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const Inbox = (props) => {
+  // const fName = localStorage.getItem("usersdatafname");
+  // const [selectedImg, setSelectedImg] = useState("");
+  // const history = useNavigate();
+  // const id = localStorage.getItem("usersdataid");
   const user = localStorage.getItem("usersdataid");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fetchImage = () => {
+    axios
+      .get(`/getimage/${props.user}`)
+      .then((res) => {
+        setSelectedFile(res.data.image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    fetchImage();
+  }, []);
 
   const [liked, setLiked] = useState(
     props.arr.includes(user) ? "fas fa-thumbs-up liked" : "fas fa-thumbs-up"
@@ -63,6 +81,13 @@ const Inbox = (props) => {
   return (
     <div class="bigContainer">
       <div class="container1">
+        <div>
+          <img
+            src={`http://localhost:8009/${selectedFile}`}
+            alt=""
+            style={{ width: "40px", height: "40px", borderRadius: "50%" }}
+          />
+        </div>
         <Link to={`../${props.complaintId}`}>
           <div className="name">{props.name}</div>
         </Link>

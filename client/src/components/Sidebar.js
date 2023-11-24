@@ -39,6 +39,14 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
+          <a href="/mainpage/allusers">
+            <span className="icon">
+              <i class="fa-solid fa-people-group"></i>
+            </span>
+            <span className="text">All Users</span>
+          </a>
+        </li>
+        <li>
           <a href="/mainpage/timetable">
             <span className="icon">
               <i class="fa-solid fa-table"></i>

@@ -97,6 +97,7 @@ const GetComplaint = () => {
               // complaint={complaint.complaint}
               arr={complaint.likedBy}
               situation={complaint.situation}
+              user={complaint.user}
               resolve={complaint.resolved}
             />
           </div>
