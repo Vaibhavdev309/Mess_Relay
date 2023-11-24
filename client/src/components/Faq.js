@@ -22,7 +22,7 @@ const Faq = () => {
                   <p class="lead fs-4 text-secondary mb-5">
                     We hope you have found an answer to your question. If you
                     need any help, please search your query on our Support
-                    Center or contact us via email.
+                    Center .
                   </p>
                   <div class="accordion accordion-flush" id="accordionExample">
                     <div class="accordion-item">
@@ -35,7 +35,7 @@ const Faq = () => {
                           aria-expanded="true"
                           aria-controls="collapseOne"
                         >
-                          How Do I Change My Billing Information?
+                          How to contact us ?
                         </button>
                       </h2>
                       <div
@@ -45,10 +45,7 @@ const Faq = () => {
                         data-bs-parent="#accordionExample"
                       >
                         <div class="accordion-body">
-                          Morbi non dui tristique, porttitor tellus vitae,
-                          dapibus risus. Suspendisse eros erat, rhoncus sit amet
-                          lobortis vel, lacinia fermentum tortor. Sed nec
-                          pellentesque urna.
+                          You can contact us via email or phone number given on website.
                         </div>
                       </div>
                     </div>
@@ -62,7 +59,7 @@ const Faq = () => {
                           aria-expanded="false"
                           aria-controls="collapseTwo"
                         >
-                          How Does Payment System Work?
+                          How to create an accont ?
                         </button>
                       </h2>
                       <div
@@ -72,10 +69,7 @@ const Faq = () => {
                         data-bs-parent="#accordionExample"
                       >
                         <div class="accordion-body">
-                          Morbi non dui tristique, porttitor tellus vitae,
-                          dapibus risus. Suspendisse eros erat, rhoncus sit amet
-                          lobortis vel, lacinia fermentum tortor. Sed nec
-                          pellentesque urna.
+                       You can create an account by registering at our website by your registration number ,name ,email , designation, hostel etc.
                         </div>
                       </div>
                     </div>
@@ -89,7 +83,7 @@ const Faq = () => {
                           aria-expanded="false"
                           aria-controls="collapseThree"
                         >
-                          How Do I Cancel My Account?
+                          How to file a complaint?
                         </button>
                       </h2>
                       <div
@@ -99,10 +93,7 @@ const Faq = () => {
                         data-bs-parent="#accordionExample"
                       >
                         <div class="accordion-body">
-                          Morbi non dui tristique, porttitor tellus vitae,
-                          dapibus risus. Suspendisse eros erat, rhoncus sit amet
-                          lobortis vel, lacinia fermentum tortor. Sed nec
-                          pellentesque urna.
+                          Go to main page-> hover to side bar-> click on add complaint -> fill the form and then click on submit.
                         </div>
                       </div>
                     </div>

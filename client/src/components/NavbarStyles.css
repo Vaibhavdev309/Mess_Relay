@@ -1,3 +1,4 @@
+@import url(https://db.onlinewebfonts.com/c/c144af7d488f9069913d40dee3cd1f70?family=Algerian);
 .NavbarItems {
   display: flex;
   justify-content: space-between;
@@ -17,6 +18,9 @@
 }
 
 .navbar-logo {
+  padding-top: 0.5em;
+  font-family: "Algerian";
+      font-weight: bolder;
   color: #222;
   font-size: 2rem;
   cursor: pointer;
@@ -27,7 +31,8 @@
   grid-template-columns: repeat(6, auto);
   grid-gap: 10px;
   list-style: none;
-  align-items: center;
+  /* align-items: center; */
+  padding-top: 1em;
 }
 
 .nav-links {
@@ -106,8 +111,8 @@ button:hover {
   .nav-links {
     display: block;
     width: 100%;
-    font-size: 1.2rem;
-    padding: 2rem 0;
+    font-size: 1.5rem;
+    padding: 2rem 2.1em;
   }
 
   .nav-links:hover {

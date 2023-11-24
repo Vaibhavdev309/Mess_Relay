@@ -6,50 +6,48 @@ const Testimonials = () => {
     <div className="testimonials">
       <figure class="snip1574">
         <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample40.jpg"
+          src="https://t4.ftcdn.net/jpg/00/73/55/53/360_F_73555398_7I08RYQK14bzNqlt6EDH6jSB7f7fnzyl.jpg"
           alt="profile-sample2"
         />
         <figcaption>
           <blockquote>
             <p>
-              Which is worse, that everyone has his price, or that the price is
-              always so low.
+            "Imagination is more important than knowledge."
+
             </p>
           </blockquote>
-          <h3>Vaibhav kumar maurya</h3>
-          <h5>Founder</h5>
+          <h3>-- BY Albert Einstein </h3>
         </figcaption>
       </figure>
       <figure class="snip1574">
         <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample37.jpg"
+          src="https://media.istockphoto.com/id/1127711153/photo/change-concept-open-paper.jpg?s=612x612&w=0&k=20&c=xL0IwEnb8y1V-bQ7WoJ-TGoAjraZAXsF8ZPEAkWvqPw="
           alt="profile-sample7"
         />
         <figcaption>
           <blockquote>
             <p>
-              I'm killing time while I wait for life to shower me with meaning
-              and happiness.
+            "Be the change that you wish to see in the world."
             </p>
           </blockquote>
-          <h3>Will Barrow</h3>
-          <h5>Web Designer</h5>
+          <h3>-- BY Mahatma Gandhi</h3>
+        
         </figcaption>
       </figure>
       <figure class="snip1574">
         <img
-          src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample35.jpg"
+          src="https://images.theoutbound.com/uploads/1481061797143/utbrnmlrin1pcdlg/8ecbf91c18cea1f030bf3d4cea51b8a5?&fit=crop&w=970&q=60"
           alt="profile-sample6"
         />
         <figcaption>
           <blockquote>
             <p>
-              The only skills I have the patience to learn are those that have
-              no real application in life.{" "}
+            "The biggest adventure you can take is to live the life of your dreams."
+
             </p>
           </blockquote>
-          <h3>Indigo Violet</h3>
-          <h5>Public Relations</h5>
+          <h3>-- By Oprah Winfrey</h3>
+     
         </figcaption>
       </figure>
     </div>

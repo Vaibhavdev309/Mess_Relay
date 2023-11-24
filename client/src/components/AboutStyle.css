@@ -58,6 +58,7 @@
 }
 
 .text-blk.heading {
+  color: #6d3519;
   font-size: 36px;
   line-height: 45px;
   font-weight: 800;
@@ -68,6 +69,7 @@
 }
 
 .text-blk.subHeading {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-align: center;
   font-size: 18px;
   line-height: 26px;
@@ -93,6 +95,7 @@
 }
 
 .social-icon:hover {
+  transform: scale(1.3); 
   cursor: pointer;
 }
 
