@@ -9,6 +9,7 @@ const usermela = require("../models/MealSchema");
 const usermeal = require("../models/MealSchema");
 const multer = require("multer");
 const path = require("path");
+const isUserBlocked = require("../middleware/blockedUser");
 
 //hello this is the new commit
 const storage = multer.diskStorage({
@@ -32,32 +33,47 @@ router.post("/register", async (req, res) => {
     !hostel ||
     !role
   ) {
-    res.status(422).json({ error: "Fill all the details" });
+    return res.status(422).json({ error: "Fill all the details" });
   }
+
   try {
-    const preUser = await userdb.findOne({ email });
+    const preUser = await userdb.findOne({ regNo });
+
     if (preUser) {
-      res.status(422).json({ error: "This Email is Already Exist" });
-    } else {
-      const finalUser = new userdb({
-        fName,
-        email,
-        regNo,
-        password,
-        cPassword,
-        hostel,
-        role,
-      });
-      const storeData = await finalUser.save();
-      res.status(201).json({ status: 201, storeData });
+      return res
+        .status(422)
+        .json({ message: "This Registration no. is Already Registered" });
     }
+    const finalUser = new userdb({
+      fName,
+      email,
+      regNo,
+      password,
+      cPassword,
+      hostel,
+      role,
+    });
+
+    const token = await finalUser.generateAuthtoken();
+    const expirationTime = new Date(Date.now() + 9000000);
+
+    // Consider using the "Secure" attribute for HTTPS
+    res.cookie("userCookie", token, {
+      expires: expirationTime,
+      httpOnly: true,
+      // secure: true, // Uncomment this line if your site is served over HTTPS
+    });
+    const data = await finalUser.save();
+    const result = { data, token };
+    res.status(201).json({ status: 201, result });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 //Post request to login a existed user with validation
-router.post("/login", async (req, res) => {
+router.post("/login", isUserBlocked, async (req, res) => {
   const { regNo, password } = req.body;
   await userdb.findOne({ regNo });
   if (!regNo || !password) {
@@ -202,27 +218,28 @@ router.post("/comp/liked/:id", async (req, res) => {
   }
 });
 router.post("/comp/commented/:id", async (req, res) => {
-  const _id = req.params.id;
-  const { user, comment, fname } = req.body;
   try {
+    const _id = req.params.id;
+    const { user, comment, fname } = req.body;
     const complaint = await usercomp.findById(_id);
     if (!complaint) {
       return res.status(404).json({ error: "Complaint not found" });
     }
-    if (!complaint.commentedBy.includes(user)) {
-      // If not, push the user ID into the liked array
-      complaint.liked.push(user);
+    const userAlreadyCommented = complaint.commentedBy.some(
+      (c) => c.user === user
+    );
 
-      // Save the updated complaint
-      await complaint.save();
-
-      return res.status(201).json("The liked person is added to the list");
-    } else {
-      const index = complaint.liked.indexOf(user);
-      complaint.liked.splice(index, 1);
-      await complaint.save();
-      return res.status(201).json({ message: "Like removed" });
-    }
+    // if (!userAlreadyCommented) {
+    complaint.commentedBy.push({ user, text: comment, fname });
+    await complaint.save();
+    return res
+      .status(201)
+      .json({ message: "Successfully added the comment to the complaint" });
+    // } else {
+    // return res
+    // .status(400)
+    // .json({ error: "User has already commented on this complaint" });
+    // }
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -430,6 +447,7 @@ router.get("/fetchimage/:id", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 router.put("/users/:userId/block", async (req, res) => {
   const userId = req.params.userId;
 
@@ -470,17 +488,43 @@ router.delete("/users/:userId", async (req, res) => {
 router.get("/getuser/:hostel", async (req, res) => {
   try {
     const hostel = req.params.hostel;
-    if (hostel == "All") {
-      const users = await userdb.find();
+    let users;
+
+    if (hostel === "All") {
+      users = await userdb.find();
     } else {
-      const users = await userdb.find({ hostel });
+      users = await userdb.find({ hostel });
     }
-    if (!users) {
-      return res.status(404).json({ message: "No user found on the database" });
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No user found in the database" });
     }
+
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.delete("/user/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const deleted = await userdb.deleteOne({ _id });
+    res.json(deleted);
+  } catch (err) {
+    res.json(err);
+  }
+});
+router.post("/blockUser/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const user = await userdb.findOne(_id);
+    const duration = req.params.time;
+    const blockedUntil = new Date(Date.now() + duration);
+    user.blockedUntil = blockedUntil;
+    await user.save();
+  } catch (error) {
+    res.status(404).json({ message: "Inter" });
   }
 });
 router.get("/listRecord");

@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 import("./controller/mailer.js");
 // const sendEmail = require("./controller/mailer.js");
 import("./db/connection.js");
+import("./controller/blocker.js");
 
 const PORT = 8009;
 

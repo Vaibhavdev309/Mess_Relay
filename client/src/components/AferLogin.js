@@ -2,14 +2,25 @@ import React, { useEffect, useState } from "react";
 import "./AfterLogin.css";
 import axios from "axios";
 import Card from "./Card";
+import Error from "./Error";
+import { useNavigate } from "react-router-dom";
 
 const AfterLogin = () => {
   const [meals, setMeals] = useState([]);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("/daymeal").then((response) => {
-      setMeals(response.data[0]);
-    });
+    axios
+      .get("/daymeal")
+      .then((response) => {
+        setMeals(response.data); // Assuming response.data is an array of meals
+      })
+      .catch((error) => {
+        setError("Error fetching meals");
+        return <div>No way</div>;
+        console.error("Error fetching meals:", error);
+      });
   }, []);
 
   return (
@@ -97,6 +108,8 @@ const AfterLogin = () => {
         </div>
         <p></p>
       </div>
+      <h2>Total Calorie</h2>
+      <p></p>
     </div>
   );
 };

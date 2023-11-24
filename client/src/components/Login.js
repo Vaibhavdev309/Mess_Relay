@@ -1,5 +1,5 @@
 import "./LoginStyle.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -46,21 +46,39 @@ const LoginPage = () => {
           role,
           hostel,
         })
-        .then(() => {
-          setFName("");
-          setRegNo("");
-          setEmail("");
-          setPassword("");
-          setCPassword("");
-          setRole("");
-          setHostel("");
+        .then(async (response) => {
           alert("Registration Successfully Done");
+          const res = response.data.result;
+          if (response.status === 201) {
+            localStorage.setItem("usersdatatoken", res.token);
+            localStorage.setItem("usersdatafname", res.data.fName);
+            localStorage.setItem("usersdataregno", res.data.regNo);
+            localStorage.setItem("usersdataemail", res.data.email);
+            localStorage.setItem("usersdataid", res.data._id);
+            localStorage.setItem("usersdatarole", res.data.role);
+            localStorage.setItem("usersdatahostel", res.data.hostel);
+            // setFName("");
+            // setRegNo("");
+            // setEmail("");
+            // setPassword("");
+            // setCPassword("");
+            // setRole("");
+            // setHostel("");
+            console.log("paar ho gye");
+            navigate("/mainpage/afterlogin");
+          }
         })
         .catch((error) => {
-          console.error("Error:", error.response.data);
+          console.error("Error:", error);
+          alert(error.response.data.message);
         });
     }
   };
+  useEffect(() => {
+    if (role === "Admin") {
+      setHostel("All");
+    }
+  }, [onInputChange6]);
 
   const loginUser = (event) => {
     event.preventDefault();
@@ -72,6 +90,8 @@ const LoginPage = () => {
       axios
         .post("/login", { regNo, password })
         .then(async (response) => {
+          setRegNo("");
+          setPassword("");
           const res = response.data;
           if (res.status === 201) {
             localStorage.setItem("usersdatatoken", res.result.token);
@@ -80,10 +100,11 @@ const LoginPage = () => {
             localStorage.setItem("usersdataemail", res.result.userValid.email);
             localStorage.setItem("usersdataid", res.result.userValid._id);
             localStorage.setItem("usersdatarole", res.result.userValid.role);
-            localStorage.setItem("usersdatahostel", res.result.userValid.role);
+            localStorage.setItem(
+              "usersdatahostel",
+              res.result.userValid.hostel
+            );
             navigate("/mainpage/afterlogin");
-            setRegNo("");
-            setPassword("");
           }
         })
         .catch((error) => {
@@ -235,10 +256,8 @@ const LoginPage = () => {
                       </option>
                       <option value="Student">Student</option>
                       <option value="Accountant">Accountant</option>
-                      <option value="Professor">Professor</option>
-                      <option value="Student Representative">
-                        Student Representative
-                      </option>
+                      <option value="Chief Warden">Chief Warden</option>
+                      <option value="Admin">Admin</option>
                     </select>
                     <select
                       style={{ flexShrink: "1", width: "40%" }}
@@ -256,6 +275,11 @@ const LoginPage = () => {
                       <option value="Patel">Patel</option>
                       <option value="Tilak">Tilak</option>
                       <option value="Tandon">Tandon</option>
+                      <option value="Tandon">Tagore</option>
+                      <option value="Tandon">Malviya</option>
+                      <option value="Tandon">Raman</option>
+                      <option value="Tandon">KNGH</option>
+                      <option value="All">All</option>
                     </select>
                   </div>
                   <div className="input-box">

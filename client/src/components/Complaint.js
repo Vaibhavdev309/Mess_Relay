@@ -30,6 +30,7 @@ const Complaint = () => {
     axios
       .post(`/comp/commented/${id}`, { user, comment, fname })
       .then(() => {
+        console.log("I reached here");
         setComment("");
       })
       .catch((err) => {
@@ -38,7 +39,7 @@ const Complaint = () => {
   };
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/complaintbox/${id}`); // Replace with your actual API endpoint
+      const response = await axios.get(`/complaintbox/${id}`);
       setComplaints(response.data);
       console.log(response.data);
     } catch (error) {
