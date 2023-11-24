@@ -94,6 +94,32 @@
   }
 }
 
+input{
+  width: 20em;
+  color: whitesmoke;
+  text-align: center;
+ background-color: #3c3f44;
+}
+label{
+  width: 20em;
+  border: 1px solid white;
+  color: whitesmoke;
+  background-color: #3c3f44;
+}
+
+select{
+  color: black;
+  background-color: #ee2828;
+}
+.Buto{
+  margin-left: 20em;
+  width: 30em;
+  background-color: #3c3f44;
+}
+.day{
+  margin-left: 25em;
+  text-align: center;
+}
 /* .table-container {
   padding: 0 10%;
   margin: 40px auto 0;
