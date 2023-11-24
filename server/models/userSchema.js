@@ -34,6 +34,7 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  blocked: { type: Boolean, default: false },
 });
 
 userSchema.pre("save", async function (next) {

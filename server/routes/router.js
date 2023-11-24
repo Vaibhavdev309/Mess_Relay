@@ -170,19 +170,6 @@ router.delete("/comp/:id", async (req, res) => {
   }
 });
 
-// Route to delete a specific user
-router.delete("/user/:id", async (req, res) => {
-  try {
-    // Delete the user with the given ID
-    const _id = req.params.id;
-    const deleted = await userdb.deleteOne({ _id });
-    await userdb.save();
-    res.json(deleted);
-  } catch (err) {
-    res.json(err);
-  }
-});
-
 router.post("/comp/liked/:id", async (req, res) => {
   const _id = req.params.id;
   const { user } = req.body;
@@ -365,13 +352,17 @@ router.get("/daymeal", async (req, res) => {
     const now = new Date();
     let day = now.getDay();
     din = day;
+
     const meal = await usermeal.find({ din: din });
-    if (!meal) {
-      res.json("The meal is not found");
+
+    if (meal.length === 0) {
+      res.status(404).json({ message: "No meal found for the current day" });
+    } else {
+      res.json(meal);
     }
-    res.json(meal);
   } catch (error) {
-    console.log("The error is", error);
+    console.error("Error fetching daymeal:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -439,6 +430,60 @@ router.get("/fetchimage/:id", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+router.put("/users/:userId/block", async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    // Find the user by ID
+    const user = await userdb.findById({ _id: userId });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Toggle the blocked status
+    user.blocked = !user.blocked;
+
+    // Save the updated user
+    await user.save();
+
+    res.json({ message: "User blocked/unblocked successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+router.delete("/users/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const deletedUser = await userdb.findByIdAndDelete({ _id: userId });
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json({ message: "User deleted successfully", deletedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+router.get("/getuser/:hostel", async (req, res) => {
+  try {
+    const hostel = req.params.hostel;
+    if (hostel == "All") {
+      const users = await userdb.find();
+    } else {
+      const users = await userdb.find({ hostel });
+    }
+    if (!users) {
+      return res.status(404).json({ message: "No user found on the database" });
+    }
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+router.get("/listRecord");
 // router.post("/givereview", async (req, res) => {
 //   try {
 //     const { user, num, mealType } = req.body;

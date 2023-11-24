@@ -56,7 +56,16 @@ const Sidebar = () => {
             </a>
           </li>
         )}
-
+        {role === "Professor" && (
+          <li>
+            <a href="/mainpage/reviewchart">
+              <span className="icon">
+                <i class="fa-solid fa-chart-simple"></i>
+              </span>
+              <span className="text">Review Expense</span>
+            </a>
+          </li>
+        )}
         <li>
           <a href="#">
             <span className="icon">
