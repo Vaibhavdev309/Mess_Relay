@@ -54,8 +54,11 @@ const YourComplaint = () => {
               complaintId={complaint._id}
               name={complaint.fname}
               subject={complaint.subject}
-              complaint={complaint.complaint}
+              // complaint={complaint.complaint}
               arr={complaint.likedBy}
+              situation={complaint.situation}
+              user={complaint.user}
+              resolve={complaint.resolved}
             />
           </div>
         );

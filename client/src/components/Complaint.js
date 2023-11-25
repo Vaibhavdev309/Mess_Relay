@@ -30,7 +30,6 @@ const Complaint = () => {
     axios
       .post(`/comp/commented/${id}`, { user, comment, fname })
       .then(() => {
-        console.log("I reached here");
         setComment("");
       })
       .catch((err) => {

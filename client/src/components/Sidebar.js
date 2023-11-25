@@ -54,7 +54,7 @@ const Sidebar = () => {
             <span className="text">Time Table</span>
           </a>
         </li>
-        {role === "Professor" && (
+        {/* {(role === "Professor" || role === "Admin") && (
           <li>
             <a href="/mainpage/reviewchart">
               <span className="icon">
@@ -63,8 +63,8 @@ const Sidebar = () => {
               <span className="text">Review Expense</span>
             </a>
           </li>
-        )}
-        {role === "Professor" && (
+        )} */}
+        {(role === "Professor" || role === "Admin") && (
           <li>
             <a href="/mainpage/reviewchart">
               <span className="icon">
