@@ -30,7 +30,7 @@ const Intro = () => {
             <div class="team-content">
               <div class="team-info">
                 <h3 class="title">Gaurav singh</h3>
-                <span class="post">Web Developer</span>
+                <span class="post">Front-end Developer</span>
               </div>
             </div>
           </div>
@@ -58,7 +58,7 @@ const Intro = () => {
             <div class="team-content">
               <div class="team-info">
                 <h3 class="title">Vaibhav Maurya</h3>
-                <span class="post">Web Designer</span>
+                <span class="post">Back-end Developer</span>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ const Intro = () => {
             <div class="team-content">
               <div class="team-info">
                 <h3 class="title">Pranav Kashikey</h3>
-                <span class="post">Web Designer</span>
+                <span class="post">Front-end Developer</span>
               </div>
             </div>
           </div>

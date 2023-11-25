@@ -12,78 +12,66 @@ const Footer = () => {
               <a href="#">About Us</a>
             </li>
             <li>
-              <a href="#">Compressions</a>
+              <a href="#">Hostels</a>
             </li>
             <li>
-              <a href="#">Customers</a>
+              <a href="#">Contact us</a>
             </li>
             <li>
-              <a href="#">Service</a>
+              <a href="#"> Our Services</a>
             </li>
-            <li>
-              <a href="#">Collection</a>
-            </li>
+            
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Explore</h4>
+          <h4>Connect with us</h4>
           <ul class="links">
             <li>
-              <a href="#">Free Designs</a>
+              <a href="#">Facebook</a>
             </li>
             <li>
-              <a href="#">Latest Designs</a>
+              <a href="#">Linkedin</a>
+            </li>
+           
+            <li>
+              <a href="#">Instagram</a>
             </li>
             <li>
-              <a href="#">Themes</a>
+              <a href="#">Twitter</a>
             </li>
-            <li>
-              <a href="#">Popular Designs</a>
-            </li>
-            <li>
-              <a href="#">Art Skills</a>
-            </li>
-            <li>
-              <a href="#">New Uploads</a>
-            </li>
+            
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Legal</h4>
+          <h4>Help</h4>
           <ul class="links">
             <li>
-              <a href="#">Customer Agreement</a>
+              <a href="#">Customer support</a>
             </li>
             <li>
               <a href="#">Privacy Policy</a>
             </li>
             <li>
-              <a href="#">GDPR</a>
+              <a href="#">Quick solutions</a>
             </li>
             <li>
               <a href="#">Security</a>
             </li>
             <li>
-              <a href="#">Testimonials</a>
+              <a href="#">24/7 Support</a>
             </li>
-            <li>
-              <a href="#">Media Kit</a>
-            </li>
+           
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>Newsletter</h4>
+          <h4>Mail us</h4>
           <p>
-            Subscribe to our newsletter for a weekly dose of news, updates,
-            helpful tips, and exclusive offers.
+            vaibhav.dev.309@gmail.com
           </p>
-          <form action="#">
-            <input type="text" placeholder="Your email" required />
-            <button type="submit">SUBSCRIBE</button>
-          </form>
+         
           <div class="icons">
             <i class="fa-brands fa-facebook-f"></i>
             <i class="fa-brands fa-twitter"></i>

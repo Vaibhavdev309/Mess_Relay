@@ -143,14 +143,16 @@ const TimeTable = () => {
           })}
         </table>
       </h1>
+
       {(role === "Professor" || role === "Admin") && (
+
         <>
           <form
             className="meal"
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={onFormSubmit}
           >
-            <label for="day">Day</label>
+            <label className="day" for="day">Day</label>
             <select
               name="day"
               id="day"
@@ -166,7 +168,7 @@ const TimeTable = () => {
               <option value="Saturday">Saturday</option>
               <option value="Sunday">Sunday</option>
             </select>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <label for="breakfast">Breakfast</label>
               <input
                 name="breakfast"
@@ -199,7 +201,7 @@ const TimeTable = () => {
               />
             </div>
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <label for="lunch">Lunch</label>
               <input
                 id="lunch"
@@ -230,7 +232,7 @@ const TimeTable = () => {
               />
             </div>
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <label for="snacks">Snacks</label>
               <input
                 placeholder="snacks"
@@ -259,7 +261,7 @@ const TimeTable = () => {
               />
             </div>
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
               <label for="dinner">Dinner</label>
               <input
                 id="dinner"
@@ -290,7 +292,7 @@ const TimeTable = () => {
               />
             </div>
 
-            <button type="submit">Submit</button>
+            <button className="Buto" type="submit">Submit</button>
           </form>
         </>
       )}
