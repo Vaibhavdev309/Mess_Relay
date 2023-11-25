@@ -47,10 +47,10 @@ const TimeTable = () => {
         setLunchExpense(ans.lunchExpense);
         setSnacksExpense(ans.snacksExpense);
         setDinnerExpense(ans.dinnerExpense);
-        setBreakfastCalorie(ans.calorie);
-        setLunchCalorie(ans.calorie);
-        setSnacksCalorie(ans.calorie);
-        setDinnerCalorie(ans.calorie);
+        setBreakfastCalorie(ans.breakfastCalorie);
+        setLunchCalorie(ans.lunchCalorie);
+        setSnacksCalorie(ans.snackCalorie);
+        setDinnerCalorie(ans.dinnerCalorie);
       }
     } catch (error) {
       console.error("Error fetching day meal data:", error);
@@ -143,7 +143,9 @@ const TimeTable = () => {
           })}
         </table>
       </h1>
-      {role === "Admin" && (
+
+      {(role === "Professor" || role === "Admin") && (
+
         <>
           <form
             className="meal"

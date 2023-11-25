@@ -112,7 +112,9 @@ const Inbox = (props) => {
             <p>{props.arr.length}</p>
           </div>
 
-          {(role === "Accountant" || role === "Professor") && (
+          {(role === "Accountant" ||
+            role === "Professor" ||
+            role === "Admin") && (
             <div>
               <Link onClick={() => doResolve(props.complaintId)}>
                 <i

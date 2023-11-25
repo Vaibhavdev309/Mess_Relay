@@ -96,27 +96,29 @@
 
 .inputo{
   width: 20em;
-  color: whitesmoke;
+  color: rgb(8, 8, 8);
   text-align: center;
- background-color: #3c3f44;
+  /* background-color: #3c3f44; */
 }
 .khana{
   width: 20em;
   border: 1px solid white;
   color: whitesmoke;
-  background-color: #3c3f44;
+  /* background-color: #3c3f44; */
 }
 
 .selecto{
+
   color: black;
   background-color: #ee2828;
 }
-.Buto{
+.Buto {
   margin-left: 20em;
   width: 30em;
-  background-color: #3c3f44;
+  /* background-color: #3c3f44; */
 }
 .dayo{
+
   margin-left: 25em;
   text-align: center;
 }

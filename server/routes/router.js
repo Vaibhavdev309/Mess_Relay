@@ -73,7 +73,7 @@ router.post("/register", async (req, res) => {
 });
 
 //Post request to login a existed user with validation
-router.post("/login", isUserBlocked, async (req, res) => {
+router.post("/login", async (req, res) => {
   const { regNo, password } = req.body;
   await userdb.findOne({ regNo });
   if (!regNo || !password) {
@@ -318,7 +318,7 @@ router.put("/mealupdate", async (req, res) => {
         snacks,
         dinner,
       });
-
+      console.log(dinnerExpense);
       const ans = await newMeal.save();
 
       return res
@@ -338,6 +338,7 @@ router.put("/mealupdate", async (req, res) => {
     mealfound.snacksExpense = snacksExpense;
     mealfound.dinnerCalorie = dinnerCalorie;
     mealfound.dinnerExpense = dinnerExpense;
+    console.log(mealfound);
 
     const ans = await mealfound.save();
 
@@ -369,12 +370,12 @@ router.get("/daymeal", async (req, res) => {
     const now = new Date();
     let day = now.getDay();
     din = day;
-
     const meal = await usermeal.find({ din: din });
 
     if (meal.length === 0) {
       res.status(404).json({ message: "No meal found for the current day" });
     } else {
+      console.log(meal);
       res.json(meal);
     }
   } catch (error) {
@@ -528,31 +529,73 @@ router.post("/blockUser/:id", async (req, res) => {
   }
 });
 router.get("/listRecord");
-// router.post("/givereview", async (req, res) => {
-//   try {
-//     const { user, num, mealType } = req.body;
-//     const [meal] = await usermeal.find({ din: din });
-//     const now = new Date();
-//     let date = now.getDate();
-//     let din = now.getDay();
-//     const [person] = await userdb.find({ _id: user });
-//     if (!person) {
-//       console.log("The user does not exist");
-//       return res.status(404).json({ error: "User not found" });
-//     }
-//     const calorie = await usermeal.find();
-//     const data = {
-//       day: date,
-//       time: mealType,
-//       rating: num,
-//       calorie: ,
-//     };
-//     console.log(data);
-//     person.reviews.push(data);
-//     await person.save();
-//     res.json(person);
-//   } catch (error) {
-//     console.log("Error", error);
-//   }
-// });
+router.post("/givereview", async (req, res) => {
+  try {
+    const { user, num, mealType, mealCalorie } = req.body;
+
+    const now = new Date();
+    let date = now.getDate();
+    const [person] = await userdb.find({ _id: user });
+
+    if (!person) {
+      console.log("The user does not exist");
+      return res.status(404).json({ error: "User not found" });
+    }
+    console.log("I reached here");
+
+    // Check if the user has already given a rating for the specified meal type on the current day
+    const existingReview = person.reviews.find(
+      (review) => review.day === date && review.time === mealType
+    );
+    console.log("I dont reached here");
+    console.log(existingReview);
+    if (existingReview) {
+      console.log("User has already given a rating for this meal type today");
+      return res
+        .status(400)
+        .json({ message: "You have already rated this meal type today" });
+    }
+
+    const data = {
+      day: date,
+      time: mealType,
+      rating: num,
+      calorie: mealCalorie,
+    };
+
+    person.reviews.push(data);
+    await person.save();
+    res.json(person);
+  } catch (error) {
+    console.log("Error", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/addcalorie/:id", async (req, res) => {
+  const _id = req.params.id;
+
+  try {
+    // Find the user by id
+    const user = await userdb.findById(_id);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    let totalCalorie = 0;
+
+    // Sum up the calories from each review
+    user.reviews.forEach((review) => {
+      totalCalorie += review.calorie;
+    });
+
+    // Send the total calorie count in the response
+    res.json({ totalCalorie });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;

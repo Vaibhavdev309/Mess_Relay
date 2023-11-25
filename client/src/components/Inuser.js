@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Inuser = (props) => {
   // const user = localStorage.getItem("usersdataid");
+  const [min, setMin] = useState(0);
+  const [time, setTime] = useState(0);
   const [selectedFile, setSelectedFile] = useState(null);
   const fetchImage = () => {
     axios
@@ -19,14 +21,28 @@ const Inuser = (props) => {
   useEffect(() => {
     fetchImage();
   }, []);
-  const doBlock = () => {};
+  const doBlock = () => {
+    axios
+      .post(`/blockUser/${props.userId}`, { time })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  useEffect(() => doBlock(), [time]);
+
   const user = localStorage.getItem("usersdataid");
   const [toggle, setToggle] = useState(true);
 
   // const [liked, setLiked] = useState(
   //   props.arr.includes(user) ? "fas fa-thumbs-up liked" : "fas fa-thumbs-up"
   // );
-
+  const fixTime = (e) => {
+    console.log(e.target.value);
+    setTime(e.target.value);
+  };
   const role = localStorage.getItem("usersdatarole");
   const hostel = localStorage.getItem("usersdatahostel");
   const [users, setUsers] = useState([]);
@@ -123,6 +139,27 @@ const Inuser = (props) => {
                 }
               ></i>
             </Link> */}
+            <select
+              onChange={fixTime}
+              value={role}
+              style={{
+                flexShrink: "1",
+                width: "40%",
+                margin: "0px 30px",
+              }}
+              name="time"
+              id="time"
+              defaultValue=""
+              required
+            >
+              <option value="" disabled selected>
+                Duration
+              </option>
+              <option value="100000">100000</option>
+              <option value="Accountant">Accountant</option>
+              <option value="Chief Warden">Chief Warden</option>
+              <option value="Admin">Admin</option>
+            </select>
             <Link onClick={() => doBlock(props.userId)}>
               <i class="fa-regular fa-circle-xmark"></i>
             </Link>

@@ -29,7 +29,20 @@ const MyPieChart = () => {
         const noofusers = users.data.length;
         const terms = response.data;
 
-        const fetchedSeries = terms.map((term) => term.expense * noofusers);
+        // Handle null values and perform calculations
+        const fetchedSeries = terms.map((term) => {
+          const breakfastExpense = term.breakfastExpense || 0;
+          const lunchExpense = term.lunchExpense || 0;
+          const snacksExpense = term.snacksExpense || 0;
+          const dinnerExpense = term.dinnerExpense || 0;
+
+          return (
+            (breakfastExpense + lunchExpense + snacksExpense + dinnerExpense) *
+            noofusers
+          );
+        });
+
+        console.log(fetchedSeries);
         setChartSeries(fetchedSeries);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,7 +50,9 @@ const MyPieChart = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array to run the effect only once (on mount)
+  }, []);
+
+  // Empty dependency array to run the effect only once (on mount)
 
   // Render the chart component
   return (
