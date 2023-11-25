@@ -94,20 +94,20 @@
   }
 }
 
-input{
+.inputo{
   width: 20em;
   color: whitesmoke;
   text-align: center;
  background-color: #3c3f44;
 }
-label{
+.khana{
   width: 20em;
   border: 1px solid white;
   color: whitesmoke;
   background-color: #3c3f44;
 }
 
-select{
+.selecto{
   color: black;
   background-color: #ee2828;
 }
@@ -116,7 +116,7 @@ select{
   width: 30em;
   background-color: #3c3f44;
 }
-.day{
+.dayo{
   margin-left: 25em;
   text-align: center;
 }
