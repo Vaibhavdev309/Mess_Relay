@@ -51,7 +51,7 @@
   letter-spacing: 0.35px;
   font-weight: normal;
   color: #f1f1f1;
-  background-color: #3c3f44;
+  /* background-color: #3c3f44; */
   padding: 8px;
   text-align: center;
   border: 1px solid #dee2e685;
@@ -94,29 +94,29 @@
   }
 }
 
-input{
+input {
   width: 20em;
-  color: whitesmoke;
+  color: rgb(8, 8, 8);
   text-align: center;
- background-color: #3c3f44;
+  /* background-color: #3c3f44; */
 }
-label{
+label {
   width: 20em;
   border: 1px solid white;
   color: whitesmoke;
-  background-color: #3c3f44;
+  /* background-color: #3c3f44; */
 }
 
-select{
+select {
   color: black;
   background-color: #ee2828;
 }
-.Buto{
+.Buto {
   margin-left: 20em;
   width: 30em;
-  background-color: #3c3f44;
+  /* background-color: #3c3f44; */
 }
-.day{
+.day {
   margin-left: 25em;
   text-align: center;
 }
