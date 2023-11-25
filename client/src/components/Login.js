@@ -26,15 +26,15 @@ const LoginPage = () => {
   const addUserData = (event) => {
     event.preventDefault();
     if (fName === "") {
-      console.log("Please enter your first name");
+      alert("Please enter your first name");
     } else if (!email.includes("@") || !email.includes(".")) {
-      console.log("Please enter a valid email ID");
+      alert("Please enter a valid email ID");
     } else if (regNo === "" || regNo.length < 7) {
-      console.log("Please enter a valid registration number");
+      alert("Please enter a valid registration number");
     } else if (password.length < 7) {
-      console.log("Password must be greater than 7 characters");
+      alert("Password must be greater than 7 characters");
     } else if (password !== cPassword) {
-      console.log("Password should match confirm password");
+      alert("Password should match confirm password");
     } else {
       axios
         .post("/register", {
@@ -57,13 +57,13 @@ const LoginPage = () => {
             localStorage.setItem("usersdataid", res.data._id);
             localStorage.setItem("usersdatarole", res.data.role);
             localStorage.setItem("usersdatahostel", res.data.hostel);
-            // setFName("");
-            // setRegNo("");
-            // setEmail("");
-            // setPassword("");
-            // setCPassword("");
-            // setRole("");
-            // setHostel("");
+            setFName("");
+            setRegNo("");
+            setEmail("");
+            setPassword("");
+            setCPassword("");
+            setRole("");
+            setHostel("");
             console.log("paar ho gye");
             navigate("/mainpage/afterlogin");
           }
@@ -83,9 +83,9 @@ const LoginPage = () => {
   const loginUser = (event) => {
     event.preventDefault();
     if (regNo === "" || regNo.length < 7) {
-      console.log("Please enter a valid registration number");
+      alert("Please enter a valid registration number");
     } else if (password.length < 7) {
-      console.log("Password must be greater than 7 characters");
+      alert("Password must be greater than 7 characters");
     } else {
       axios
         .post("/login", { regNo, password })
@@ -108,7 +108,7 @@ const LoginPage = () => {
           }
         })
         .catch((error) => {
-          console.log(error.response.data);
+          alert(error.response.data.error);
         });
     }
   };

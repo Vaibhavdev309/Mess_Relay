@@ -5,9 +5,17 @@ const Card = (props) => {
   const user = localStorage.getItem("usersdataid");
   const giveRating = async (num) => {
     axios
-      .post("/givereview", { num, user, mealType: props.time })
+      .post("/givereview", {
+        num,
+        user,
+        mealType: props.time,
+        mealCalorie: props.calorie,
+      })
       .then((res) => {
         console.log("You successfully rated the user");
+      })
+      .catch((err) => {
+        alert("You already rated the dish");
       });
   };
   return (
@@ -16,6 +24,7 @@ const Card = (props) => {
       <h2>{props.time}</h2>
       <p>{props.day}</p>
       <p>{props.details}</p>
+      <h1>{props.calorei}</h1>
       <div className="star">
         <i
           onClick={() => {
