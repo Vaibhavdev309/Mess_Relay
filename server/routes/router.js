@@ -547,9 +547,10 @@ router.post("/givereview", async (req, res) => {
     const existingReview = person.reviews.find(
       (review) => review.day === date && review.time === mealType
     );
-    console.log("I dont reached here");
+    console.log("I don't reach here");
     console.log(existingReview);
-    if (existingReview) {
+
+    if (existingReview !== undefined) {
       console.log("User has already given a rating for this meal type today");
       return res
         .status(400)

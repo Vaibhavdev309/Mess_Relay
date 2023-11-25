@@ -134,8 +134,8 @@ const AfterLogin = () => {
             <label htmlFor="t-5"></label>
             {/* <label htmlFor="t-5"></label> */}
           </div>
-          <h2>total Calorie</h2>
-          <h1>{totalCalorie}</h1>
+          {/* <h2>total Calorie</h2>
+          <h1>{totalCalorie}</h1> */}
         </div>
         <p></p>
       </div>
