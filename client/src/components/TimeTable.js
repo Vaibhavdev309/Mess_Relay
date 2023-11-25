@@ -152,8 +152,9 @@ const TimeTable = () => {
             style={{ display: "flex", flexDirection: "column" }}
             onSubmit={onFormSubmit}
           >
-            <label className="day" for="day">Day</label>
+            <label  for="day">Day</label>
             <select
+            className="selecto"
               name="day"
               id="day"
               required
@@ -169,8 +170,9 @@ const TimeTable = () => {
               <option value="Sunday">Sunday</option>
             </select>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <label for="breakfast">Breakfast</label>
-              <input
+              <label  className="khana" for="breakfast">Breakfast</label>
+              <input 
+              className="inputo"
                 name="breakfast"
                 id="breakfast"
                 placeholder="Breakfast"
@@ -180,7 +182,8 @@ const TimeTable = () => {
                 }}
                 value={breakfast}
               />
-              <input
+              <input 
+              className="inputo"
                 name="breakfastExpense"
                 id="breakfastExpense"
                 placeholder="Breakfast Expense"
@@ -190,7 +193,8 @@ const TimeTable = () => {
                 }}
                 value={breakfastExpense}
               />
-              <input
+              <input 
+              className="inputo"
                 id="breakfastCalorie"
                 placeholder="Breakfast Calorie"
                 type="number"
@@ -202,8 +206,9 @@ const TimeTable = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <label for="lunch">Lunch</label>
-              <input
+              <label className="khana"  for="lunch">Lunch</label>
+              <input 
+              className="inputo"
                 id="lunch"
                 placeholder="Lunch"
                 type="text"
@@ -212,7 +217,8 @@ const TimeTable = () => {
                 }}
                 value={lunch}
               />
-              <input
+              <input 
+              className="inputo"
                 id="lunchExpense"
                 placeholder="Lunch Expense"
                 type="text"
@@ -221,7 +227,8 @@ const TimeTable = () => {
                 }}
                 value={lunchExpense}
               />
-              <input
+              <input 
+              className="inputo"
                 id="lunchCalorie"
                 placeholder="Lunch Calorie"
                 type="number"
@@ -233,8 +240,9 @@ const TimeTable = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <label for="snacks">Snacks</label>
-              <input
+              <label className="khana"  for="snacks">Snacks</label>
+              <input 
+              className="inputo"
                 placeholder="snacks"
                 type="text"
                 onChange={(e) => {
@@ -242,7 +250,8 @@ const TimeTable = () => {
                 }}
                 value={snacks}
               />
-              <input
+              <input 
+              className="inputo"
                 placeholder="snacks Expense"
                 type="text"
                 onChange={(e) => {
@@ -250,7 +259,8 @@ const TimeTable = () => {
                 }}
                 value={snacksExpense}
               />
-              <input
+              <input 
+              className="inputo"
                 id="snacksCalorie"
                 placeholder="Snacks calorie"
                 type="number"
@@ -262,8 +272,9 @@ const TimeTable = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <label for="dinner">Dinner</label>
-              <input
+              <label  className="khana" for="dinner">Dinner</label>
+              <input 
+              className="inputo"
                 id="dinner"
                 placeholder="Dinner"
                 type="text"
@@ -272,7 +283,8 @@ const TimeTable = () => {
                 }}
                 value={dinner}
               />
-              <input
+              <input 
+              className="inputo"
                 id="dinnerExpense"
                 placeholder="Dinner Expense"
                 type="text"
@@ -281,7 +293,8 @@ const TimeTable = () => {
                 }}
                 value={dinnerExpense}
               />
-              <input
+              <input 
+              className="inputo"
                 id="dinnerCalorie"
                 placeholder="dinner calorie"
                 type="number"
