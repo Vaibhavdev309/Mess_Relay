@@ -4,6 +4,12 @@ import axios from "axios";
 
 const ProfilePage = () => {
   const user = localStorage.getItem("usersdataid");
+  const role = localStorage.getItem("usersdatarole");
+  const email = localStorage.getItem("usersdataemail");
+  const name = localStorage.getItem("usersdatafname");
+  const regno = localStorage.getItem("usersdataregno");
+  const hostel = localStorage.getItem("usersdatahostel");
+
   const [selectedFile, setSelectedFile] = useState(null);
   const fetchImage = () => {
     axios
@@ -60,8 +66,8 @@ const ProfilePage = () => {
             </div>
             <div class="col-md-6">
               <div class="profile-head">
-                <h5>Kshiti Ghelani</h5>
-                <h6>Web Developer and Designer</h6>
+                <h5>{name}</h5>
+                <h6>{role}</h6>
                 <p class="proile-rating">
                   RANKINGS : <span>8/10</span>
                 </p>
@@ -136,10 +142,10 @@ const ProfilePage = () => {
                 >
                   <div class="row">
                     <div class="col-md-6">
-                      <label>User Id</label>
+                      <label>Registration No.</label>
                     </div>
                     <div class="col-md-6">
-                      <p>Kshiti123</p>
+                      <p>{regno}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -147,7 +153,7 @@ const ProfilePage = () => {
                       <label>Name</label>
                     </div>
                     <div class="col-md-6">
-                      <p>Kshiti Ghelani</p>
+                      <p>{name}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -155,15 +161,15 @@ const ProfilePage = () => {
                       <label>Email</label>
                     </div>
                     <div class="col-md-6">
-                      <p>kshitighelani@gmail.com</p>
+                      <p>{email}</p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <label>Phone</label>
+                      <label>Hostel</label>
                     </div>
                     <div class="col-md-6">
-                      <p>123 456 7890</p>
+                      <p>{hostel}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -171,7 +177,7 @@ const ProfilePage = () => {
                       <label>Profession</label>
                     </div>
                     <div class="col-md-6">
-                      <p>Web Developer and Designer</p>
+                      <p>{role}</p>
                     </div>
                   </div>
                 </div>
