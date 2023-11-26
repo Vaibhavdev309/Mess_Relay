@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const router = require("./routes/router");
+const router = require("./routes/router.js");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const axios = require("axios");
