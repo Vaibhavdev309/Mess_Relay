@@ -10,7 +10,7 @@ import("./controller/mailer.js");
 import("./db/connection.js");
 import("./controller/blocker.js");
 
-const PORT = 8009;
+const PORT = process.env.PORT || 8009;
 
 console.log("hello");
 app.use(express.json());
