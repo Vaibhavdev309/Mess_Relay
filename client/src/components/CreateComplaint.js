@@ -5,6 +5,7 @@ import "./CreateComplaint.css";
 import { useNavigate } from "react-router-dom";
 
 const CreateComplaint = () => {
+  const hostel = localStorage.getItem("usersdatahostel");
   const [victim, setVictim] = useState("");
   const [situation, setSituation] = useState("Intermediate");
   const [authority, setAuthority] = useState("");
@@ -62,6 +63,7 @@ const CreateComplaint = () => {
     formData.append("victim", victim);
     formData.append("situation", situation);
     formData.append("authority", authority);
+    formData.append("hostel", hostel);
     console.log(formData);
     if (complaint === "" || subject === "" || victim === "") {
       console.log("Please enter valid subject and complaint before submitting");

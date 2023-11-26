@@ -24,6 +24,7 @@ const complaintSchema = new mongoose.Schema({
       fname: String,
     },
   ],
+  hostel: { type: String, required: true },
 });
 
 const usercomp = new mongoose.model("complaint", complaintSchema);

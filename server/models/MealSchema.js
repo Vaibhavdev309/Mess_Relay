@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const mealSchema = new mongoose.Schema({
   day: { type: String, required: true },
+  hostel: { type: String, required: true },
   din: { type: Number, required: true },
   breakfast: { type: String, required: true },
   lunch: { type: String, required: true },

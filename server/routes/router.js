@@ -127,6 +127,7 @@ router.get("/logout", authenticate, async (req, res) => {
 router.post("/subComp", upload.single("compimg"), async (req, res) => {
   console.log(req.body);
   const {
+    hostel,
     complaint,
     user,
     fname,
@@ -142,6 +143,7 @@ router.post("/subComp", upload.single("compimg"), async (req, res) => {
     const newComp = new usercomp({
       image: { data: req.file.filename, contentType: req.file.mimetype },
       subject,
+      hostel,
       complaint,
       user,
       fname,
@@ -166,14 +168,18 @@ router.post("/mycomplaint", async (req, res) => {
       res.json(err);
     });
 });
-router.get("/showComplaints", async (req, res) => {
-  usercomp
-    .find()
-    .then((complaints) => res.json(complaints))
-    .catch((err) => {
-      res.json(err);
-    });
+router.post("/showComplaints", async (req, res) => {
+  try {
+    const { hostel } = req.body;
+    const query = hostel !== "All" ? { hostel } : {};
+
+    const complaints = await usercomp.find(query);
+    res.json(complaints);
+  } catch (err) {
+    res.json(err);
+  }
 });
+
 // Route to delete a specific complaint
 router.delete("/comp/:id", async (req, res) => {
   try {
@@ -285,6 +291,7 @@ router.get("/complaintbox/:id", async (req, res) => {
 router.put("/mealupdate", async (req, res) => {
   try {
     const {
+      hostel,
       day,
       breakfast,
       lunch,
@@ -300,9 +307,10 @@ router.put("/mealupdate", async (req, res) => {
       dinnerExpense,
       din,
     } = req.body;
-    let mealfound = await usermeal.findOne({ day });
+    let mealfound = await usermeal.findOne({ day, hostel });
     if (!mealfound) {
       const newMeal = new usermeal({
+        hostel,
         day,
         breakfastCalorie,
         breakfastExpense,
@@ -320,7 +328,6 @@ router.put("/mealupdate", async (req, res) => {
       });
       console.log(dinnerExpense);
       const ans = await newMeal.save();
-
       return res
         .status(201)
         .json({ message: "New meal created successfully", ans });
@@ -349,8 +356,9 @@ router.put("/mealupdate", async (req, res) => {
   }
 });
 
-router.get("/findmeal", async (req, res) => {
-  const ans = await usermeal.find().sort({ din: 1 });
+router.post("/findmeal", async (req, res) => {
+  const { hostel } = req.body;
+  const ans = await usermeal.find({ hostel }).sort({ din: 1 });
   res.json(ans);
 });
 
@@ -365,12 +373,16 @@ router.post("/finddaymeal", async (req, res) => {
   }
 });
 
-router.get("/daymeal", async (req, res) => {
+router.post("/daymeal", async (req, res) => {
+  const { hostel } = req.body;
   try {
     const now = new Date();
     let day = now.getDay();
     din = day;
-    const meal = await usermeal.find({ din: din });
+    if (day === 0) {
+      din = 7;
+    }
+    const meal = await usermeal.find({ din, hostel });
 
     if (meal.length === 0) {
       res.status(404).json({ message: "No meal found for the current day" });
@@ -425,7 +437,7 @@ router.get("/getimage/:userId", async (req, res) => {
     if (!user || !user.image) {
       return res.status(404).send("Image not found");
     }
-    console.log("The ans is ", user);
+    // console.log("The ans is ", user);
     res.json(user);
   } catch (error) {
     console.error("Error fetching image:", error);
@@ -441,7 +453,7 @@ router.get("/fetchimage/:id", async (req, res) => {
     if (!comp || !comp.image) {
       return res.status(404).send("Image not found");
     }
-    console.log("The ans is ", comp);
+    // console.log("The ans is ", comp);
     res.json(comp);
   } catch (error) {
     console.error("Error fetching image:", error);
@@ -486,9 +498,9 @@ router.delete("/users/:userId", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-router.get("/getuser/:hostel", async (req, res) => {
+router.post("/getuser", async (req, res) => {
   try {
-    const hostel = req.params.hostel;
+    const { hostel, role } = req.body;
     let users;
 
     if (hostel === "All") {
@@ -596,6 +608,69 @@ router.get("/addcalorie/:id", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/userRating", async (req, res) => {
+  const date = new Date().getDate();
+  try {
+    const { user, time } = req.body;
+    const meal = await userdb.findOne({ _id: user }).select("reviews");
+
+    if (!meal) {
+      console.log("User not found");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    console.log("The meal that I am searching for is ", meal);
+
+    // Use find to get the specific review for the specified day and time
+    const specificReview = meal.reviews.find(
+      (mea) => mea.day === date && mea.time === time
+    );
+
+    if (specificReview) {
+      console.log(specificReview.rating);
+      res.json({ rating: specificReview.rating });
+    } else {
+      console.log("Review not found for the specified day and time");
+      res
+        .status(404)
+        .json({ error: "Review not found for the specified day and time" });
+    }
+  } catch (error) {
+    console.log("The error is", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+router.post("/sendmessage", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    console.log("I reached here", name, email, message);
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
+      auth: {
+        user: "sudosusenpai@gmail.com",
+        pass: "ffqd hwwr hgof oxax",
+      },
+    });
+    console.log("i reached here");
+    const receiver = "vaibhav.dev.309@gmail.com";
+
+    const info = await transporter.sendMail({
+      from: `${name} <${email}>`,
+      to: `${receiver}`,
+      subject: "Contact Us Email",
+      text: message,
+    });
+    {
+      res.status(201).json({ message: "Email send successfully" });
+    }
+  } catch (error) {
+    res.status(401).json({ message: error });
   }
 });
 

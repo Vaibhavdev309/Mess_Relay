@@ -5,6 +5,7 @@ import Inbox from "./Inbox";
 
 const GetComplaint = () => {
   const user = localStorage.getItem("usersdataid");
+  const hostel = localStorage.getItem("usersdatahostel");
   const role = localStorage.getItem("usersdatarole");
   const [complaints, setComplaints] = useState([]);
   const navigate = useNavigate();
@@ -78,7 +79,7 @@ const GetComplaint = () => {
   }, []);
   useEffect(() => {
     axios
-      .get("/showComplaints")
+      .post("/showComplaints", { hostel })
       .then((complaints) => setComplaints(complaints.data))
       .catch((error) => {
         console.log(error);
@@ -99,6 +100,8 @@ const GetComplaint = () => {
               situation={complaint.situation}
               user={complaint.user}
               resolve={complaint.resolved}
+              regno={complaint.regno}
+              hostel={complaint.hostel}
             />
           </div>
         );

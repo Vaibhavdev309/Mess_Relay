@@ -15,7 +15,7 @@ const Complaint = () => {
     axios
       .get(`/fetchimage/${id}`)
       .then((res) => {
-        console.log("The ans is ", res.data);
+        // console.log("The ans is ", res.data);
         setSelectedImg(res.data.image.data);
       })
       .catch((err) => {

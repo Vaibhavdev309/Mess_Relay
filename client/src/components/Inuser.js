@@ -49,7 +49,7 @@ const Inuser = (props) => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/getuser/${hostel}`); // Replace with your actual API endpoint
+      const response = await axios.post(`/getuser`, {}); // Replace with your actual API endpoint
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -108,6 +108,7 @@ const Inuser = (props) => {
         <div className="regno">{props.regno}</div>
         <div className="name">{props.name}</div>
         <div className="name">{props.role}</div>
+        <div className="name">{props.hostel}</div>
         {/* <div className="subject">{props.subject}</div> */}
         {/* <div className="complaint">{truncateText(props.complaint, 30)}</div> */}
         <div className="icon">

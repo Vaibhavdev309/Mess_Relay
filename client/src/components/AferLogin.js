@@ -6,6 +6,7 @@ import Error from "./Error";
 import { useNavigate } from "react-router-dom";
 
 const AfterLogin = () => {
+  const hostel = localStorage.getItem("usersdatahostel");
   const user = localStorage.getItem("usersdataid");
   const [meals, setMeals] = useState([]);
   const [totalCalorie, setTotalCalorie] = useState(0);
@@ -23,7 +24,7 @@ const AfterLogin = () => {
   };
   useEffect(() => {
     axios
-      .get("/daymeal")
+      .post("/daymeal", { hostel })
       .then((response) => {
         setMeals(response.data);
       })

@@ -80,7 +80,7 @@ const GetUser = () => {
   }, []);
   useEffect(() => {
     axios
-      .get(`/getuser/${hostel}`)
+      .post(`/getuser`, { hostel, role })
       .then((users) => setUsers(users.data))
       .catch((error) => {
         console.log(error);
@@ -97,6 +97,7 @@ const GetUser = () => {
               name={user.fName}
               regno={user.regNo}
               role={user.role}
+              hostel={user.hostel}
               //   subject={user.subject}
               // user={user.user}
               //   arr={user.likedBy}

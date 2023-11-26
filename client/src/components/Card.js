@@ -1,8 +1,14 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Card = (props) => {
   const user = localStorage.getItem("usersdataid");
+  const [star1, setStar1] = useState("fa-solid fa-star fa-beat"); // Initial class
+  const [star2, setStar2] = useState("fa-solid fa-star fa-beat");
+  const [star3, setStar3] = useState("fa-solid fa-star fa-beat");
+  const [star4, setStar4] = useState("fa-solid fa-star fa-beat");
+  const [star5, setStar5] = useState("fa-solid fa-star fa-beat");
+
   const giveRating = async (num) => {
     axios
       .post("/givereview", {
@@ -18,8 +24,48 @@ const Card = (props) => {
         alert("You already rated the dish");
       });
   };
+
+  useEffect(() => {
+    axios
+      .post("/userRating", { user, time: props.time })
+      .then((res) => {
+        const rating = res.data.rating;
+
+        // Update the star styles based on the rating
+        setStar1(
+          rating >= 1
+            ? "fa-solid fa-star fa-beat golden"
+            : "fa-solid fa-star fa-beat"
+        );
+        setStar2(
+          rating >= 2
+            ? "fa-solid fa-star fa-beat golden"
+            : "fa-solid fa-star fa-beat"
+        );
+        setStar3(
+          rating >= 3
+            ? "fa-solid fa-star fa-beat golden"
+            : "fa-solid fa-star fa-beat"
+        );
+        setStar4(
+          rating >= 4
+            ? "fa-solid fa-star fa-beat golden"
+            : "fa-solid fa-star fa-beat"
+        );
+        setStar5(
+          rating === 5
+            ? "fa-solid fa-star fa-beat golden"
+            : "fa-solid fa-star fa-beat"
+        );
+      })
+      .catch((err) => {
+        console.log(props.time);
+        console.log(err);
+      });
+  }, [user, props.time]);
+
   return (
-    <label class="item" for={props.for}>
+    <label className="item" htmlFor={props.for}>
       <img src={props.img} alt="picture" />
       <h2>{props.time}</h2>
       <p>{props.day}</p>
@@ -27,34 +73,29 @@ const Card = (props) => {
       <h1>{props.calorei}</h1>
       <div className="star">
         <i
-          onClick={() => {
-            giveRating(1);
-          }}
-          class="fa-solid fa-star fa-beat"
+          onClick={() => giveRating(1)}
+          className={star1}
+          style={{ color: star1.includes("golden") ? "#ffd700" : "#e3e3e3" }}
         ></i>
         <i
-          onClick={() => {
-            giveRating(2);
-          }}
-          class="fa-solid fa-star fa-beat"
+          onClick={() => giveRating(2)}
+          className={star2}
+          style={{ color: star2.includes("golden") ? "#ffd700" : "#e3e3e3" }}
         ></i>
         <i
-          onClick={() => {
-            giveRating(3);
-          }}
-          class="fa-solid fa-star fa-beat"
+          onClick={() => giveRating(3)}
+          className={star3}
+          style={{ color: star3.includes("golden") ? "#ffd700" : "#e3e3e3" }}
         ></i>
         <i
-          onClick={() => {
-            giveRating(4);
-          }}
-          class="fa-solid fa-star fa-beat"
+          onClick={() => giveRating(4)}
+          className={star4}
+          style={{ color: star4.includes("golden") ? "#ffd700" : "#e3e3e3" }}
         ></i>
         <i
-          onClick={() => {
-            giveRating(5);
-          }}
-          class="fa-solid fa-star fa-beat"
+          onClick={() => giveRating(5)}
+          className={star5}
+          style={{ color: star5.includes("golden") ? "#ffd700" : "#e3e3e3" }}
         ></i>
       </div>
     </label>
@@ -62,12 +103,3 @@ const Card = (props) => {
 };
 
 export default Card;
-
-// <label className="item" htmlFor="t-1">
-//       <img src="https://dummyimage.com/150" alt="picture" />
-//       <p>
-//         "Raw denim you probably haven't heard of them jean short austin.
-//         Nesciunt tofu stumptown aliqua, retro synth master cleanse."
-//       </p>
-//       <h2>- Princy, Web Developer</h2>
-//     </label>

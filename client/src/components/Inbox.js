@@ -81,7 +81,7 @@ const Inbox = (props) => {
   return (
     <div class="bigContainer">
       <div class="container1">
-        <div>
+        <div style={{ width: "100px" }}>
           <img
             src={`http://localhost:8009/${selectedFile}`}
             alt=""
@@ -89,9 +89,13 @@ const Inbox = (props) => {
           />
         </div>
         <Link to={`../${props.complaintId}`}>
-          <div className="name">{props.name}</div>
+          <div className="name" style={{ width: "400px", margin: "auto" }}>
+            {props.name}
+          </div>
         </Link>
         <div className="subject">{props.subject}</div>
+        <div className="regno">{props.regno}</div>
+        <div className="hostel">{props.hostel}</div>
         <div className="complaint">{truncateText(props.complaint, 30)}</div>
         <div className="icon">
           <Link>
@@ -113,7 +117,7 @@ const Inbox = (props) => {
           </div>
 
           {(role === "Accountant" ||
-            role === "Professor" ||
+            role === "Chief Warden" ||
             role === "Admin") && (
             <div>
               <Link onClick={() => doResolve(props.complaintId)}>

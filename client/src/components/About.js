@@ -3,7 +3,7 @@ import "./AboutStyle.css";
 
 const About = () => {
   return (
-    <div id="Aboutus" class="responsive-container-block bigContainer">
+    <div id="AboutUs" class="responsive-container-block bigContainer">
       <div class="responsive-container-block Container">
         <p class="text-blk heading">About Us</p>
         <p class="text-blk subHeading">
