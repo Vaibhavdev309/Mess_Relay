@@ -306,6 +306,9 @@ body {
   object-fit: cover;
   z-index: 10;
 }
+.container .back .text {
+  transform: rotateY(180deg);
+}
 .container .cover .text {
   position: absolute;
   z-index: 130;

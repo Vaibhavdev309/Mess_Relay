@@ -15,7 +15,7 @@ const ProfilePage = () => {
     axios
       .get(`/getimage/${user}`)
       .then((res) => {
-        console.log("The ans is ", res.data);
+        // console.log("The ans is ", res.data);
         setSelectedFile(res.data.image);
       })
       .catch((err) => {
