@@ -123,14 +123,14 @@ const LoginPage = () => {
           <div className="cover">
             <div className="front">
               <img
-                src="https://i.ebayimg.com/images/g/qCwAAOSwPK1ZXaHN/s-l1600.jpg"
+                src="https://i.pinimg.com/originals/1c/2c/b6/1c2cb61593096ae24c03a8434ec337c2.gif"
                 alt=""
               />
               <div className="text">
                 <span className="text-1">
                   Every new friend is a <br /> new adventure
                 </span>
-                <span className="text-2">Let's get connected</span>
+                  <span className="text-2">Let's get connected</span>
               </div>
             </div>
             <div className="back">
