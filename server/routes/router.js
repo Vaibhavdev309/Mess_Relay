@@ -658,7 +658,7 @@ router.post("/sendmessage", async (req, res) => {
       },
     });
     console.log("i reached here");
-    const receiver = "vaibhav.dev.309@gmail.com";
+    const receiver = "pranavkashikey93@gmail.com";
 
     const info = await transporter.sendMail({
       from: `${name} <${email}>`,

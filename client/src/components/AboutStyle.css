@@ -13,6 +13,11 @@
   padding-left: 0px;
   line-height: 25px;
 }
+#AboutUs {
+  /* margin-top: 400px; */
+  padding-top: 60px;
+
+}
 
 .responsive-container-block {
   min-height: 75px;
