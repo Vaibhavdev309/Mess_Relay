@@ -1,143 +1,108 @@
-.gojo {
-  margin: 0;
-  /* background-image: linear-gradient(90deg, #201a35, #0b0320); */
-  color: #fff;
-  font-family: sans-serif;
-  display: flex;
-  align-items: center;
-  min-height: 80vh;
+:root {
+  --card-height: 500px;
+  --card-width: calc(var(--card-height) / 2);
 }
-.slider {
-  width: 100%;
-}
-.slider input {
-  display: none;
-}
-.star {
-  padding: 10px;
-}
-.item i {
-  padding: 5px;
-}
-.testimonials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  min-height: 450px;
-  perspective: 1000px;
-  overflow: hidden;
-}
-.testimonials .item {
-  width: 350px;
-  height: 500px;
-  padding: 30px;
-  border-radius: 5px;
-  background-color: #0a0220;
-  position: absolute;
-  top: 0;
+/* * {
   box-sizing: border-box;
-  text-align: center;
-  transition: transform 0.4s;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  user-select: none;
-  cursor: pointer;
-}
-.testimonials .item img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 13px solid #3b344d;
-}
-.testimonials .item p {
-  color: #ddd;
-  font-size: 20px;
-  font-style: italic;
-  padding-top: 10px;
-}
-.testimonials .item h2 {
-  font-size: 25px;
-  font-weight: bold;
-}
-.dots {
+} */
+/* .gojo {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #191c29;
+} */
+.card {
+  background-color: transparent;
+  /* width: var(--card-width); */
+  height: var(--card-height);
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-}
-.dots label {
-  height: 5px;
-  width: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-  background-color: #413b52;
-  margin: 7px;
-  transition-duration: 0.2s;
+  /* padding: 0 36px; */
+  perspective: 2500px;
+  margin: 0 5px;
 }
 
-#t-1:checked ~ .dots label[for="t-1"],
-#t-2:checked ~ .dots label[for="t-2"],
-#t-3:checked ~ .dots label[for="t-3"],
-#t-4:checked ~ .dots label[for="t-4"],
-#t-5:checked ~ .dots label[for="t-5"] {
-  transform: scale(2);
-  background-color: #fff;
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-#t-1:checked ~ .dots label[for="t-2"],
-#t-2:checked ~ .dots label[for="t-1"],
-#t-2:checked ~ .dots label[for="t-3"],
-#t-3:checked ~ .dots label[for="t-2"],
-#t-3:checked ~ .dots label[for="t-4"],
-#t-4:checked ~ .dots label[for="t-3"],
-#t-4:checked ~ .dots label[for="t-5"],
-#t-5:checked ~ .dots label[for="t-4"] {
-  transform: scale(1.5);
+
+.wrapper {
+  transition: all 0.5s;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
 }
-#t-1:checked ~ .testimonials label[for="t-5"] {
-  transform: translate3d(1200px, 0, -360px) rotateY(-45deg);
+
+.card:hover .wrapper {
+  transform: perspective(900px) translateY(-5%) rotateX(25deg) translateZ(0);
+  box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
 }
-#t-1:checked ~ .testimonials label[for="t-4"],
-#t-2:checked ~ .testimonials label[for="t-5"] {
-  transform: translate3d(900px, 0, -270px) rotateY(-35deg);
-  z-index: 1;
+
+.wrapper::before,
+.wrapper::after {
+  content: "";
+  opacity: 0;
+  width: 100%;
+  height: 80px;
+  transition: all 0.5s;
+  position: absolute;
+  left: 0;
 }
-#t-1:checked ~ .testimonials label[for="t-3"],
-#t-2:checked ~ .testimonials label[for="t-4"],
-#t-3:checked ~ .testimonials label[for="t-5"] {
-  transform: translate3d(600px, 0, -180px) rotateY(-25deg);
-  z-index: 2;
+.wrapper::before {
+  top: 0;
+  height: 100%;
+  background-image: linear-gradient(
+    to top,
+    transparent 46%,
+    rgba(12, 13, 19, 0.5) 68%,
+    rgba(12, 13, 19) 97%
+  );
 }
-#t-1:checked ~ .testimonials label[for="t-2"],
-#t-2:checked ~ .testimonials label[for="t-3"],
-#t-3:checked ~ .testimonials label[for="t-4"],
-#t-4:checked ~ .testimonials label[for="t-5"] {
-  transform: translate3d(300px, 0, -90px) rotateY(-15deg);
-  z-index: 3;
+.wrapper::after {
+  bottom: 0;
+  opacity: 1;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 46%,
+    rgba(12, 13, 19, 0.5) 68%,
+    rgba(12, 13, 19) 97%
+  );
 }
-#t-2:checked ~ .testimonials label[for="t-1"],
-#t-3:checked ~ .testimonials label[for="t-2"],
-#t-4:checked ~ .testimonials label[for="t-3"],
-#t-5:checked ~ .testimonials label[for="t-4"] {
-  transform: translate3d(-300px, 0, -90px) rotateY(15deg);
-  z-index: 3;
+
+.card:hover .wrapper::before,
+.wrapper::after {
+  opacity: 1;
 }
-#t-3:checked ~ .testimonials label[for="t-1"],
-#t-4:checked ~ .testimonials label[for="t-2"],
-#t-5:checked ~ .testimonials label[for="t-3"] {
-  transform: translate3d(-600px, 0, -180px) rotateY(25deg);
+
+.card:hover .wrapper::after {
+  height: 140px;
 }
-#t-5:checked ~ .testimonials label[for="t-2"],
-#t-4:checked ~ .testimonials label[for="t-1"] {
-  transform: translate3d(-900px, 0, -270px) rotateY(35deg);
+.title {
+  width: 100%;
+  transition: transform 0.5s;
 }
-#t-5:checked ~ .testimonials label[for="t-1"] {
-  transform: translate3d(-1200px, 0, -360px) rotateY(45deg);
+.card:hover .title {
+  transform: translate3d(0%, -50px, 100px);
 }
-#t-1:checked ~ .testimonials label[for="t-1"],
-#t-2:checked ~ .testimonials label[for="t-2"],
-#t-3:checked ~ .testimonials label[for="t-3"],
-#t-4:checked ~ .testimonials label[for="t-4"],
-#t-5:checked ~ .testimonials label[for="t-4"],
-#t-5:checked ~ .testimonials label[for="t-5"] {
-  z-index: 4;
+
+.character {
+  width: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  position: absolute;
+  z-index: -1;
+}
+
+.card:hover .character {
+  opacity: 1;
+  transform: translate3d(0%, -10%, 100px);
 }

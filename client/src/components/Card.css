@@ -1,0 +1,17 @@
+.details {
+  text-align: center;
+  width: 100%;
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "center";
+  align-items: "center";
+}
+.details h2 {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+}
+.details p {
+  color: white;
+  /* align-content: center; */
+}

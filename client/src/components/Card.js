@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import "./Card.css";
 
 const Card = (props) => {
   const user = localStorage.getItem("usersdataid");
@@ -65,40 +66,57 @@ const Card = (props) => {
   }, [user, props.time]);
 
   return (
-    <label className="item" htmlFor={props.for}>
-      <img src={props.img} alt="picture" />
-      <h2>{props.time}</h2>
-      <p>{props.day}</p>
-      <p>{props.details}</p>
-      <h1>{props.calorei}</h1>
-      <div className="star">
-        <i
-          onClick={() => giveRating(1)}
-          className={star1}
-          style={{ color: star1.includes("golden") ? "#ffd700" : "#e3e3e3" }}
-        ></i>
-        <i
-          onClick={() => giveRating(2)}
-          className={star2}
-          style={{ color: star2.includes("golden") ? "#ffd700" : "#e3e3e3" }}
-        ></i>
-        <i
-          onClick={() => giveRating(3)}
-          className={star3}
-          style={{ color: star3.includes("golden") ? "#ffd700" : "#e3e3e3" }}
-        ></i>
-        <i
-          onClick={() => giveRating(4)}
-          className={star4}
-          style={{ color: star4.includes("golden") ? "#ffd700" : "#e3e3e3" }}
-        ></i>
-        <i
-          onClick={() => giveRating(5)}
-          className={star5}
-          style={{ color: star5.includes("golden") ? "#ffd700" : "#e3e3e3" }}
-        ></i>
+    <div>
+      <div class="card">
+        <div class="wrapper">
+          <img src={props.img} class="cover-image" />
+        </div>
+        <div className="details">
+          <h2>{props.time}</h2>
+          <p>{props.day}</p>
+          <p>{props.details}</p>
+          <h1>{props.calorei}</h1>
+        </div>
+        <img
+          src="https://images.creativemarket.com/0.1.0/ps/2132205/910/1364/m1/fpnw/wm1/1601_vegetables5screen-.jpg?1&s=009bf384a9aae2a16d783f7d34cd9c0c"
+          class="character"
+        />
       </div>
-    </label>
+    </div>
+    // <label className="item" htmlFor={props.for}>
+    //   <img src={props.img} alt="picture" />
+    //   <h2>{props.time}</h2>
+    //   <p>{props.day}</p>
+    //   <p>{props.details}</p>
+    //   <h1>{props.calorei}</h1>
+    //   <div className="star">
+    //     <i
+    //       onClick={() => giveRating(1)}
+    //       className={star1}
+    //       style={{ color: star1.includes("golden") ? "#ffd700" : "#e3e3e3" }}
+    //     ></i>
+    //     <i
+    //       onClick={() => giveRating(2)}
+    //       className={star2}
+    //       style={{ color: star2.includes("golden") ? "#ffd700" : "#e3e3e3" }}
+    //     ></i>
+    //     <i
+    //       onClick={() => giveRating(3)}
+    //       className={star3}
+    //       style={{ color: star3.includes("golden") ? "#ffd700" : "#e3e3e3" }}
+    //     ></i>
+    //     <i
+    //       onClick={() => giveRating(4)}
+    //       className={star4}
+    //       style={{ color: star4.includes("golden") ? "#ffd700" : "#e3e3e3" }}
+    //     ></i>
+    //     <i
+    //       onClick={() => giveRating(5)}
+    //       className={star5}
+    //       style={{ color: star5.includes("golden") ? "#ffd700" : "#e3e3e3" }}
+    //     ></i>
+    //   </div>
+    // </label>
   );
 };
 

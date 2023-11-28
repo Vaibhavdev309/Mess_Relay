@@ -146,7 +146,7 @@ const TimeTable = () => {
         </table>
       </h1>
 
-      {(role === "Professor" || role === "Admin") && (
+      {(role === "Chief Warden" || role === "Admin") && (
         <>
           <form
             className="meal"
