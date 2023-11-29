@@ -10,7 +10,7 @@ const YourComplaint = () => {
   const doLike = (id) => {
     const user = localStorage.getItem("usersdataid");
     axios
-      .post(`/comp/liked/${id}`, { user })
+      .post(`${process.env.REACT_APP_API_URL}/comp/liked/${id}`, { user })
       .then((ans) => {
         console.log(ans);
       })
@@ -21,7 +21,7 @@ const YourComplaint = () => {
 
   const ComplaintValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
-    const res = await fetch("/validUser", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/validUser`, {
       method: "GET",
       headers: { "Content-Type": "application/json", Authorization: token },
     });
@@ -38,7 +38,7 @@ const YourComplaint = () => {
   const user = localStorage.getItem("usersdataid");
   useEffect(() => {
     axios
-      .post("/mycomplaint", { user })
+      .post(`${process.env.REACT_APP_API_URL}/mycomplaint`, { user })
       .then((response) => setComplaints(response.data))
       .catch((error) => {
         console.log(error);

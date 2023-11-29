@@ -23,7 +23,10 @@ const TimeTable = () => {
   const [meals, setMeals] = useState([]);
   const checkData = async () => {
     try {
-      const response = await axios.post("/finddaymeal", { day });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/finddaymeal`,
+        { day }
+      );
       if (response.data.length === 0) {
         console.log("No data previously found");
         setBreakfast("");
@@ -58,9 +61,11 @@ const TimeTable = () => {
     }
   };
   useEffect(() => {
-    axios.post("/findmeal", { hostel }).then((response) => {
-      setMeals(response.data);
-    });
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/findmeal`, { hostel })
+      .then((response) => {
+        setMeals(response.data);
+      });
   }, []);
   useEffect(() => {
     const dayMap = {
@@ -83,7 +88,7 @@ const TimeTable = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("/mealupdate", {
+      .put(`${process.env.REACT_APP_API_URL}/mealupdate`, {
         hostel,
         day,
         breakfastCalorie,

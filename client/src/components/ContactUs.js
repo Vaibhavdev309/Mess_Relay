@@ -9,11 +9,17 @@ const ContactUs = () => {
 
   const messageSubmit = async (event) => {
     event.preventDefault();
-    axios.post("/sendmessage", { name, email, message }).then((res) => {
-      console.log(res.data).catch((err) => {
-        console.log(err);
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/sendmessage`, {
+        name,
+        email,
+        message,
+      })
+      .then((res) => {
+        console.log(res.data).catch((err) => {
+          console.log(err);
+        });
       });
-    });
     // setName("");
     // setEmail("");
     // setMessage("");

@@ -10,7 +10,7 @@ const Inuser = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fetchImage = () => {
     axios
-      .get(`/getimage/${props.userId}`)
+      .get(`${process.env.REACT_APP_API_URL}/getimage/${props.userId}`)
       .then((res) => {
         setSelectedFile(res.data.image);
       })
@@ -23,7 +23,9 @@ const Inuser = (props) => {
   }, []);
   const doBlock = () => {
     axios
-      .post(`/blockUser/${props.userId}`, { time })
+      .post(`${process.env.REACT_APP_API_URL}/blockUser/${props.userId}`, {
+        time,
+      })
       .then((res) => {
         console.log(res);
       })
@@ -49,7 +51,10 @@ const Inuser = (props) => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      const response = await axios.post(`/getuser`, {}); // Replace with your actual API endpoint
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/getuser`,
+        {}
+      ); // Replace with your actual API endpoint
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -76,7 +81,7 @@ const Inuser = (props) => {
 
   const doDelete = async (id) => {
     try {
-      await axios.delete(`/user/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/user/${id}`);
       setToggle(!toggle);
       fetchData(); // Fetch data after successful deletion
     } catch (err) {
@@ -100,7 +105,7 @@ const Inuser = (props) => {
       <div class="container1">
         <div>
           <img
-            src={`http://localhost:8009/${selectedFile}`}
+            src={`${process.env.REACT_APP_API_URL}/${selectedFile}`}
             alt=""
             style={{ width: "40px", height: "40px", borderRadius: "50%" }}
           />

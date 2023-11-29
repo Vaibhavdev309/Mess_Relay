@@ -5,8 +5,10 @@ import Slider from "react-slick";
 import "./AfterLogin.css";
 import axios from "axios";
 import Card from "./Card";
+// import dotenv from "dotenv"; // Import dotenv
 import Error from "./Error";
 import { useNavigate } from "react-router-dom";
+// dotenv.config();
 
 const AfterLogin = () => {
   var settings = {
@@ -51,7 +53,7 @@ const AfterLogin = () => {
   const navigate = useNavigate();
   const fetchData = () => {
     axios
-      .get(`/addcalorie/${user}`)
+      .get(`${process.env.API_URL}/addcalorie/${user}`)
       .then((res) => {
         setTotalCalorie(res.data.totalCalorie);
       })
@@ -61,7 +63,7 @@ const AfterLogin = () => {
   };
   useEffect(() => {
     axios
-      .post("/daymeal", { hostel })
+      .post(`${process.env.REACT_APP_API_URL}/daymeal`, { hostel })
       .then((response) => {
         setMeals(response.data);
       })

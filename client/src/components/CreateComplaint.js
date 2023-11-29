@@ -34,7 +34,7 @@ const CreateComplaint = () => {
   // };
   const ComplaintValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
-    const res = await fetch("/validUser", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/validUser`, {
       method: "GET",
       headers: { "Content-Type": "application/json", Authorization: token },
     });
@@ -69,7 +69,7 @@ const CreateComplaint = () => {
       console.log("Please enter valid subject and complaint before submitting");
     } else {
       axios
-        .post("/subComp", formData)
+        .post(`${process.env.REACT_APP_API_URL}/subComp`, formData)
         .then(async (response) => {
           // Handle the response
           const res = response.data;

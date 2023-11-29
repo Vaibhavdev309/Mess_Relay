@@ -33,7 +33,13 @@ const RegisterPage = () => {
       console.log("Password should match confirm password");
     } else {
       axios
-        .post("/register", { fName, email, regNo, password, cPassword })
+        .post(`${process.env.REACT_APP_API_URL}/register`, {
+          fName,
+          email,
+          regNo,
+          password,
+          cPassword,
+        })
         .then(() => {
           setFName("");
           setRegNo("");
@@ -57,7 +63,7 @@ const RegisterPage = () => {
       console.log("Password must be greater than 7 characters");
     } else {
       axios
-        .post("/login", { regNo, password })
+        .post(`${process.env.REACT_APP_API_URL}/login`, { regNo, password })
         .then(async (response) => {
           const res = response.data;
           if (res.status === 201) {

@@ -38,7 +38,7 @@ const LoginPage = () => {
       alert("Password should match confirm password");
     } else {
       axios
-        .post("/register", {
+        .post(`${process.env.REACT_APP_API_URL}/register`, {
           fName,
           email,
           regNo,
@@ -89,7 +89,7 @@ const LoginPage = () => {
       alert("Password must be greater than 7 characters");
     } else {
       axios
-        .post("/login", { regNo, password })
+        .post(`${process.env.REACT_APP_API_URL}/login`, { regNo, password })
         .then(async (response) => {
           setRegNo("");
           setPassword("");
@@ -130,7 +130,7 @@ const LoginPage = () => {
                 <span className="text-1">
                   Every new friend is a <br /> new adventure
                 </span>
-                  <span className="text-2">Let's get connected</span>
+                <span className="text-2">Let's get connected</span>
               </div>
             </div>
             <div className="back">

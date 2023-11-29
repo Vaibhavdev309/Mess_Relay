@@ -17,7 +17,7 @@ function Homepage() {
   const navigate = useNavigate();
   const UserValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
-    const res = await fetch("/validUser", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/validUser`, {
       method: "GET",
       headers: { "Content-Type": "application/json", Authorization: token },
     });

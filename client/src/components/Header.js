@@ -6,7 +6,7 @@ import axios from "axios";
 
 const LogoutUser = async (history) => {
   let token = localStorage.getItem("usersdatatoken");
-  const res = await fetch("/logout", {
+  const res = await fetch(`${process.env.REACT_APP_API_URL}/logout`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const Header = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fetchImage = () => {
     axios
-      .get(`/getimage/${user}`)
+      .get(`${process.env.REACT_APP_API_URL}/getimage/${user}`)
       .then((res) => {
         setSelectedFile(res.data.image);
       })
@@ -47,8 +47,8 @@ const Header = () => {
   }, []);
 
   return (
-    <header>
-      <nav>
+    <headera>
+      <nava>
         <h1>{fName}</h1>
         <div className="avtar">
           <Avatar
@@ -59,15 +59,15 @@ const Header = () => {
           >
             {selectedFile && (
               <img
-                src={`http://localhost:8009/${selectedFile}`}
+                src={`${process.env.REACT_APP_API_URL}/${selectedFile}`}
                 style={{ width: "40px", height: "40px" }}
                 alt=""
               />
             )}
           </Avatar>
         </div>
-      </nav>
-    </header>
+      </nava>
+    </headera>
   );
 };
 

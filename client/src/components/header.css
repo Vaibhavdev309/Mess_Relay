@@ -1,14 +1,14 @@
 @import url(https://db.onlinewebfonts.com/c/c144af7d488f9069913d40dee3cd1f70?family=Algerian);
 
-header {
+headera {
   background-color: #d2d1d2f6;
   width: 100%;
-  height: 5em;
+  /* height: 5em; */
   box-shadow: 0 0 10px -7px rgba(0, 0, 0, 0.7);
   justify-content: flex-start;
 }
 
-header nav {
+headera nava {
   max-width: 85%;
   height: 100%;
   margin: auto;
@@ -17,14 +17,19 @@ header nav {
   align-items: center;
 }
 
-header nav h1 {
+headera nava h1 {
   font-family: "Algerian";
-
   font-weight: bolder;
   font-size: 2.5em;
   color: black;
 }
 
-header nav .avtar {
+headera nava .avtar {
   cursor: pointer;
+}
+
+@media (max-width: 730px) {
+  headera nava h1 {
+    font-size: 20px;
+  }
 }

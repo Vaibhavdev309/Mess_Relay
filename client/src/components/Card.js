@@ -12,7 +12,7 @@ const Card = (props) => {
 
   const giveRating = async (num) => {
     axios
-      .post("/givereview", {
+      .post(`${process.env.REACT_APP_API_URL}/givereview`, {
         num,
         user,
         mealType: props.time,
@@ -28,7 +28,10 @@ const Card = (props) => {
 
   useEffect(() => {
     axios
-      .post("/userRating", { user, time: props.time })
+      .post(`${process.env.REACT_APP_API_URL}/userRating`, {
+        user,
+        time: props.time,
+      })
       .then((res) => {
         const rating = res.data.rating;
 

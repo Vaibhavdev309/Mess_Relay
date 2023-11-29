@@ -13,7 +13,7 @@ const ProfilePage = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fetchImage = () => {
     axios
-      .get(`/getimage/${user}`)
+      .get(`${process.env.REACT_APP_API_URL}/getimage/${user}`)
       .then((res) => {
         // console.log("The ans is ", res.data);
         setSelectedFile(res.data.image);
@@ -39,7 +39,10 @@ const ProfilePage = () => {
     formData.append("user", user);
     console.log(formData);
     try {
-      const response = await axios.post("/upload", formData);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/upload`,
+        formData
+      );
       setSelectedFile(response.data.image);
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -56,7 +59,10 @@ const ProfilePage = () => {
           <div class="row">
             <div class="col-md-4">
               <div class="profile-img">
-                <img src={`http://localhost:8009/${selectedFile}`} alt="" />
+                <img
+                  src={`${process.env.REACT_APP_API_URL}/${selectedFile}`}
+                  alt=""
+                />
                 <div class="file btn btn-lg btn-primary">
                   {/* Change Photo */}
                   <input type="file" name="image" onChange={ImageUpload} />

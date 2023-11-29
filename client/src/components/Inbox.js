@@ -12,7 +12,7 @@ const Inbox = (props) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const fetchImage = () => {
     axios
-      .get(`/getimage/${props.user}`)
+      .get(`${process.env.REACT_APP_API_URL}/getimage/${props.user}`)
       .then((res) => {
         setSelectedFile(res.data.image);
       })
@@ -33,7 +33,9 @@ const Inbox = (props) => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      const response = await axios.get("/showComplaints"); // Replace with your actual API endpoint
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/showComplaints`
+      ); // Replace with your actual API endpoint
       setComplaints(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -49,7 +51,7 @@ const Inbox = (props) => {
   const doLike = (id) => {
     const user = localStorage.getItem("usersdataid");
     axios
-      .post(`/comp/liked/${id}`, { user })
+      .post(`${process.env.REACT_APP_API_URL}/comp/liked/${id}`, { user })
       .then((ans) => {
         console.log(ans);
       })
@@ -60,7 +62,7 @@ const Inbox = (props) => {
 
   const doDelete = async (id) => {
     try {
-      await axios.delete(`/comp/${id}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/comp/${id}`);
       fetchData(); // Fetch data after successful deletion
     } catch (err) {
       console.log(err);
@@ -73,7 +75,7 @@ const Inbox = (props) => {
   }, [liked, complaints]);
   const doResolve = async (id) => {
     try {
-      await axios.get(`/comp/resolved/${id}`);
+      await axios.get(`${process.env.REACT_APP_API_URL}/comp/resolved/${id}`);
     } catch (err) {
       throw err;
     }
@@ -83,7 +85,7 @@ const Inbox = (props) => {
       <div class="container1">
         <div style={{ width: "100px" }}>
           <img
-            src={`http://localhost:8009/${selectedFile}`}
+            src={`${process.env.REACT_APP_API_URL}/${selectedFile}`}
             alt=""
             style={{ width: "40px", height: "40px", borderRadius: "50%" }}
           />

@@ -21,7 +21,6 @@ import GetUser from "./components/GetUser.js";
 function App() {
   return (
     <div className="App">
-      {/* <Header /> */}
       <Routes>
         <Route path="/login" element={<Login />}></Route>s
         <Route path="/register" element={<Register />} />

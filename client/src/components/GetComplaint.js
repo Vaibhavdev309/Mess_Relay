@@ -63,7 +63,7 @@ const GetComplaint = () => {
   // };
   const ComplaintValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
-    const res = await fetch("/validUser", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/validUser`, {
       method: "GET",
       headers: { "Content-Type": "application/json", Authorization: token },
     });
@@ -79,7 +79,7 @@ const GetComplaint = () => {
   }, []);
   useEffect(() => {
     axios
-      .post("/showComplaints", { hostel })
+      .post(`${process.env.REACT_APP_API_URL}/showComplaints`, { hostel })
       .then((complaints) => setComplaints(complaints.data))
       .catch((error) => {
         console.log(error);

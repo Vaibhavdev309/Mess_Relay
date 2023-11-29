@@ -64,7 +64,7 @@ const GetUser = () => {
   // };
   const UserValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
-    const res = await fetch("/validUser", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/validUser`, {
       method: "GET",
       headers: { "Content-Type": "application/json", Authorization: token },
     });
@@ -80,7 +80,7 @@ const GetUser = () => {
   }, []);
   useEffect(() => {
     axios
-      .post(`/getuser`, { hostel, role })
+      .post(`${process.env.REACT_APP_API_URL}/getuser`, { hostel, role })
       .then((users) => setUsers(users.data))
       .catch((error) => {
         console.log(error);

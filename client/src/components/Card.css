@@ -1,17 +1,20 @@
 .details {
   text-align: center;
-  width: 100%;
+  width: 70%;
+  margin: auto;
   display: "flex";
   flex-direction: "column";
   justify-content: "center";
   align-items: "center";
 }
 .details h2 {
-  color: white;
-  font-size: 30px;
+  color: rgb(2, 0, 0);
+  font-size: 40px;
   font-weight: bold;
 }
 .details p {
-  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(0, 0, 0);
   /* align-content: center; */
 }

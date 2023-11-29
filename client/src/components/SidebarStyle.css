@@ -69,13 +69,13 @@
   font-weight: 500;
 }
 
-/* @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .sidebar {
-    width: 60px; 
+    width: 40px !important;
   }
 
   .sidebar:hover {
-    width: 200px; 
+    width: 200px !important;
   }
 
   .sidebar ul li .text {
@@ -83,14 +83,14 @@
   }
 
   .sidebar ul li:hover {
-    background: none; 
+    background: none;
   }
 
   .sidebar ul li a .icon {
-    min-width: 40px; 
+    min-width: 40px;
   }
 
   .sidebar:hover ul li a .text {
-    display: flex; 
+    display: flex;
   }
-} */
+}

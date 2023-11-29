@@ -24,8 +24,12 @@ const MyPieChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/getdata");
-        const users = await axios.get("/getlength");
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getdata`
+        );
+        const users = await axios.get(
+          `${process.env.REACT_APP_API_URL}/getlength`
+        );
         const noofusers = users.data.length;
         const terms = response.data;
 

@@ -1,30 +1,29 @@
 /* Add these styles to your existing styles or create a new CSS file */
 body {
-    margin: 0; /* Remove default body margin */
-  }
-  
-  .header {
-    z-index:99;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50px; /* Adjust the height as needed */
-    background-color: #f0f0f0; /* Add a background color for better visibility */
-  }
-  
-  .sidebar {
-    position: fixed;
-    top: 80px; /* Adjust based on the height of the header */
-    left: 0;
-    bottom: 0;
-    width: 60px; /* Adjust the width as needed */
-    background-color: #6c4963; /* Add a background color for better visibility */
-  }
-  
-  .outlet {
-    margin-left: 60px; /* Adjust based on the width of the sidebar */
-    margin-top: 90px; /* Adjust based on the height of the header */
-    padding: 20px; /* Add padding to the outlet content */
-  }
-  
+  margin: 0; /* Remove default body margin */
+}
+
+.header {
+  z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px !important; /* Adjust the height as needed */
+  background-color: #c71c1c; /* Add a background color for better visibility */
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px !important; /* Adjust based on the height of the header */
+  left: 0;
+  bottom: 0;
+  width: 60px; /* Adjust the width as needed */
+  background-color: #ce2aa5; /* Add a background color for better visibility */
+}
+
+.outlet {
+  margin-left: 60px; /* Adjust based on the width of the sidebar */
+  margin-top: 90px; /* Adjust based on the height of the header */
+  padding: 20px; /* Add padding to the outlet content */
+}

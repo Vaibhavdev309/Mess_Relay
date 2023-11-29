@@ -13,7 +13,7 @@ const Complaint = () => {
   const [comment, setComment] = useState("");
   const fetchImage = () => {
     axios
-      .get(`/fetchimage/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/fetchimage/${id}`)
       .then((res) => {
         // console.log("The ans is ", res.data);
         setSelectedImg(res.data.image.data);
@@ -28,7 +28,11 @@ const Complaint = () => {
   const doComment = (event) => {
     event.preventDefault();
     axios
-      .post(`/comp/commented/${id}`, { user, comment, fname })
+      .post(`${process.env.REACT_APP_API_URL}/comp/commented/${id}`, {
+        user,
+        comment,
+        fname,
+      })
       .then(() => {
         setComment("");
       })
@@ -38,7 +42,9 @@ const Complaint = () => {
   };
   const fetchData = async () => {
     try {
-      const response = await axios.get(`/complaintbox/${id}`);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/complaintbox/${id}`
+      );
       setComplaints(response.data);
       console.log(response.data);
     } catch (error) {
@@ -80,7 +86,7 @@ const Complaint = () => {
                 {complaints[0].complaint}
                 {selectedImg && (
                   <img
-                    src={`http://localhost:8009/${selectedImg}`}
+                    src={`${process.env.REACT_APP_API_URL}/${selectedImg}`}
                     alt=""
                     className="complaint-image"
                   />
